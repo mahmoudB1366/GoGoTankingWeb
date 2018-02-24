@@ -1,0 +1,60 @@
+.name-promptP1{
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	margin-left: -630px;
+    width: 300px;
+	background-color: #eee;
+	z-index: 2;
+    padding: 10px;
+    border: 2px black;
+}
+
+.name-promptP2{
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	margin-left: -310px;
+	width: 300px;
+	background-color: #eee;
+	z-index: 2;
+	padding: 10px;
+}
+
+.tank-selection{
+	display: inline-block;
+	width: 350px;
+	padding: 0;
+	list-style-type: none;
+	margin: 20px auto 0 auto;
+}
+
+.tank-select label{
+	display: inline-block;
+	margin: 10px 0;
+	width: 100%;
+	text-align: center;
+}
+
+.tank-selection li select:focus{
+	display: inline-block;
+	width: 90px;
+	text-align: center;
+	cursor: pointer;
+	border: 2px solid #eee;
+	padding: 10px 0;
+}
+
+.tank-selection li.selected{
+	border: 2px solid #158cba;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+		 -o-border-radius: 5px;
+			border-radius: 5px;
+	border-radius: 5px;
+}
+
+#canvas {
+    border: 1px black dotted
+  }
+  

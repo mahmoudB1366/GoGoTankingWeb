@@ -10,26 +10,26 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var Levels;
 (function (Levels) {
-    var Level1 = /** @class */ (function (_super) {
-        __extends(Level1, _super);
+    var Background = /** @class */ (function (_super) {
+        __extends(Background, _super);
         // private instance variables
         // public properties
         // Constructor
-        function Level1() {
-            var _this = _super.call(this, Core.GameManager.assetManager.getResult("bg1")) || this;
+        function Background(imageString) {
+            var _this = _super.call(this, Core.GameManager.assetManager.getResult(imageString)) || this;
             _this.Start();
             return _this;
         }
         // private methods
         // public methods
         // Initializes variables and creates new objects
-        Level1.prototype.Start = function () {
+        Background.prototype.Start = function () {
         };
         // updates the game object every frame
-        Level1.prototype.Update = function () {
+        Background.prototype.Update = function () {
         };
-        return Level1;
+        return Background;
     }(createjs.Bitmap));
-    Levels.Level1 = Level1;
+    Levels.Background = Background;
 })(Levels || (Levels = {}));
-//# sourceMappingURL=level1.js.map
+//# sourceMappingURL=background.js.map

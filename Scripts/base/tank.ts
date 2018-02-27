@@ -1,5 +1,5 @@
 module base {
-    export abstract class Tank extends createjs.Bitmap {
+    export abstract class Tank extends base.GameObject {
       // private instance variables
       protected _keyboardEvent: KeyboardEvent; 
 
@@ -9,55 +9,43 @@ module base {
       protected _bulletSpeed: number;
       protected _bulletPower: number;
 
-     protected _left :string;
-     protected _right :string;
-     protected _up :string;
-     protected _down :string;
-     protected _fire :string;
+     protected _moveLeft :boolean;
+     protected _moveRight :boolean;
+     protected _moveUp :boolean;
+     protected _moveDown :boolean;
+     protected _startFire :boolean;
 
-     protected  _bullet :objects.Bullet;
-  
+     protected  _bullet :base.Bullet;
+     
       // public properties
-      public Width: number;
-      public Height: number;
-      public HalfWidth: number;
-      public HalfHeight: number;
-      public LayerIndex : number;
       
       
   
       // constructors
       constructor(imageString:string) {
-        super(Core.GameManager.assetManager.getResult(imageString));
+        super(imageString);
         this.name = imageString;
-        this._initialize();
+
+        //this._initialize();
+        this.Start();
     }
       // private methods
-      private _initialize():void {
-        this.Width = this.getBounds().width;
-        this.Height = this.getBounds().height;
-        this.HalfWidth = this.Width * 0.5;
-        this.HalfHeight = this.Height * 0.5;
-        this.regX = this.HalfWidth;
-        this.regY = this.HalfHeight;
-        this.Start();
-      }
-  
+      
       // public methods
       public Start(): void {
-
+        
       }
   
       public Update(): void {
         
-        this._keyboardEvent = Core.GameManager.KeyboardEvent;
         this.Move();
         this.CheckBounds();
+        
 
         if (this._bullet != null)
         {
           this._bullet.Update();
-          if (this._bullet.IsOut())
+          if (this._bullet.IsBulletOut())
           {
             this._bullet = null;
           }
@@ -71,6 +59,8 @@ module base {
       {
 
       }
+      protected setController():void{
+     }
   
       public CheckBounds():void {
         //right boundary
@@ -96,40 +86,52 @@ module base {
       }
   
       public Move():void {
-        
-        if (this._keyboardEvent !=null)
-        {       
-         switch(this._keyboardEvent.key) {
-          case this._left:
-            this.x-=this._tankSpeed;
-            this.rotation = -90;
-            Core.GameManager.KeyboardEvent = null;
-          break;
-          case this._right:
-            this.x+=this._tankSpeed;
-            this.rotation = +90;
-            Core.GameManager.KeyboardEvent = null;
-          break;
-          case this._down:
-            this.y+=this._tankSpeed;
-            this.rotation = 180;
-            Core.GameManager.KeyboardEvent = null;
-          break;
-          case this._up:
-          this.y-=this._tankSpeed;
+        this.setController();
+        if((this._moveLeft) && (this._moveUp)) {
+          this.x -= this._tankSpeed;
+          this.y -= this._tankSpeed;
+          this.rotation = -45;
+        }
+        else if((this._moveLeft) && (this._moveDown)) {
+          this.x -= this._tankSpeed;
+          this.y += this._tankSpeed;
+          this.rotation = -135;
+        }
+        else if((this._moveRight) && (this._moveDown)) {
+          this.x += this._tankSpeed;
+          this.y += this._tankSpeed;
+          this.rotation = 135;
+        }
+        else if((this._moveRight) && (this._moveUp)) {
+          this.x += this._tankSpeed;
+          this.y -= this._tankSpeed;
+          this.rotation = 45;
+        }
+        else if(this._moveLeft) {
+          this.x -= this._tankSpeed;
+          this.rotation = -90;
+        }
+        else if(this._moveRight) {
+          this.x += this._tankSpeed;
+          this.rotation = 90;
+        }
+        else if(this._moveUp) {
+          this.y -= this._tankSpeed;
           this.rotation = 0;
-          Core.GameManager.KeyboardEvent = null;
-        break;
-        case this._fire:
-        if (this._bullet == null)
-        {
-this.fire();
         }
-        Core.GameManager.KeyboardEvent = null;
-      break;
+        else if(this._moveDown) {
+          this.y += this._tankSpeed;
+          this.rotation = 180;
         }
+        else if(this._startFire) {
+          if (this._bullet == null)
+          {
+            createjs.Sound.play("fire");
+            this.fire();
+          }
           
         }
+        
       }
 
     }

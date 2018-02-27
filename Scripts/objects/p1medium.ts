@@ -8,7 +8,6 @@ module objects {
       constructor() {
         super("p1medium");
         this.setTankProperties();
-        this.setController();
         this.Start();
       }
   
@@ -24,12 +23,12 @@ module objects {
         Core.GameManager.P1Health = 100;
       }
       //set Controllers
-      private setController():void{
-        this._left = Core.GameManager.P1_LEFT;
-        this._right = Core.GameManager.P1_RIGHT;
-        this._up = Core.GameManager.P1_UP;
-        this._down = Core.GameManager.P1_DOWN;
-        this._fire = Core.GameManager.P1_FIRE;
+      protected setController():void{
+        this._moveLeft = Core.GameManager.keyboardManager.P1Left;
+        this._moveRight = Core.GameManager.keyboardManager.P1Right;
+        this._moveUp = Core.GameManager.keyboardManager.P1Up;
+        this._moveDown = Core.GameManager.keyboardManager.P1Down;
+        this._startFire = Core.GameManager.keyboardManager.P1Fire;
      }
       // public methods
   
@@ -42,6 +41,7 @@ module objects {
       // updates the game object every frame
       public Update():void {
         super.Update();
+        //this.setController();
       }
 
       protected fire():void

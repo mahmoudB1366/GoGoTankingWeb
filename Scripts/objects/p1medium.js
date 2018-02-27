@@ -18,7 +18,6 @@ var objects;
         function P1Medium() {
             var _this = _super.call(this, "p1medium") || this;
             _this.setTankProperties();
-            _this.setController();
             _this.Start();
             return _this;
         }
@@ -34,11 +33,11 @@ var objects;
         };
         //set Controllers
         P1Medium.prototype.setController = function () {
-            this._left = Core.GameManager.P1_LEFT;
-            this._right = Core.GameManager.P1_RIGHT;
-            this._up = Core.GameManager.P1_UP;
-            this._down = Core.GameManager.P1_DOWN;
-            this._fire = Core.GameManager.P1_FIRE;
+            this._moveLeft = Core.GameManager.keyboardManager.P1Left;
+            this._moveRight = Core.GameManager.keyboardManager.P1Right;
+            this._moveUp = Core.GameManager.keyboardManager.P1Up;
+            this._moveDown = Core.GameManager.keyboardManager.P1Down;
+            this._startFire = Core.GameManager.keyboardManager.P1Fire;
         };
         // public methods
         // Initializes variables and creates new objects
@@ -49,6 +48,7 @@ var objects;
         // updates the game object every frame
         P1Medium.prototype.Update = function () {
             _super.prototype.Update.call(this);
+            //this.setController();
         };
         P1Medium.prototype.fire = function () {
             this._bullet = new objects.Bullet1(this.x, this.y, this.rotation, this._bulletSpeed, this._bulletRange, this._bulletPower);

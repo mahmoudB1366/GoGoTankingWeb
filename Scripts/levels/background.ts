@@ -1,12 +1,12 @@
 module Levels {
-    export class Level1 extends createjs.Bitmap {
+    export class Background extends createjs.Bitmap {
       // private instance variables
         
       // public properties
   
       // Constructor
-      constructor() {
-        super(Core.GameManager.assetManager.getResult("bg1"));
+      constructor(imageString:string) {
+        super(Core.GameManager.assetManager.getResult(imageString));
         this.Start();
       }
   
@@ -25,4 +25,3 @@ module Levels {
       }
     }
   }
-  

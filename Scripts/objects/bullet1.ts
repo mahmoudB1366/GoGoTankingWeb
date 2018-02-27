@@ -8,6 +8,7 @@ module objects {
       constructor(x:number,y:number,angel:number,speed:number,range:number,power:number) {
         super(x,y,angel,speed,range,power);
         this._enemy = "Player2";
+        this.name = "Bullet1";
         this._enemyTank = Core.GameManager.playScene.getChildAt(2) as base.Tank;
       }
 

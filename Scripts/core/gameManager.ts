@@ -3,7 +3,7 @@ module Core {
       public static stage: createjs.Stage;
       public static assetManager: createjs.LoadQueue;
       public static currentScene: number;
-      public static KeyboardEvent: KeyboardEvent;
+      public static keyboardManager: managers.KeyboardManager;
       public static playScene : base.Scene;
       public static Timer:number;
 
@@ -27,17 +27,7 @@ module Core {
       public static L_bullet_power = 25;
 
       //Controllers
-      public static P1_LEFT = 'a';
-      public static P1_RIGHT = 'd';
-      public static P1_UP = 'w';
-      public static P1_DOWN = 's';
-      public static P1_FIRE = 'm';
 
-      public static P2_LEFT = 'j';
-      public static P2_RIGHT = 'l';
-      public static P2_UP = 'i';
-      public static P2_DOWN = 'k';
-      public static P2_FIRE = 'p';
 
       //Level Winners
       public static Level1Winner:string;

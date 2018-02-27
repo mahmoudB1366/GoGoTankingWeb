@@ -18,6 +18,7 @@ var objects;
         function Bullet1(x, y, angel, speed, range, power) {
             var _this = _super.call(this, x, y, angel, speed, range, power) || this;
             _this._enemy = "Player2";
+            _this.name = "Bullet1";
             _this._enemyTank = Core.GameManager.playScene.getChildAt(2);
             return _this;
         }

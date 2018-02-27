@@ -57,6 +57,7 @@ var scenes;
             Core.GameManager.Player1TankType = null;
             Core.GameManager.Player2TankType = null;
             // this._selectionShadow = new base.Button("selection", 100, 100);
+            this._background = new Levels.Background("start");
             this._player1 = new base.Label("Player1:", "24px", "Consolas", "#000000", 100, 50, true);
             this._p1Heavy = new base.Button("p1heavy", 200, 100);
             this._p1Medium = new base.Button("p1medium", 300, 100);
@@ -78,7 +79,7 @@ var scenes;
         };
         // This is where the fun happens
         StartScene.prototype.Main = function () {
-            // add the welcome label to the scene
+            this.addChild(this._background);
             // this.addChild(this._selectionShadow);
             this.addChild(this._player1);
             this.addChild(this._player2);

@@ -9,10 +9,9 @@
     var assetManifest;
     var currentScene;
     var currentState;
+    var keyBoardManager;
     assetManifest = [
-        { id: "clickMeButton", src: "./Assets/images/clickMeButton.png" },
         { id: "startButton", src: "./Assets/images/startButton.png" },
-        { id: "nextButton", src: "./Assets/images/nextButton.png" },
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "p1heavy", src: "./Assets/images/p1heavy.png" },
         { id: "p1medium", src: "./Assets/images/p1medium.png" },
@@ -22,7 +21,12 @@
         { id: "p2light", src: "./Assets/images/p2light.png" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "selection", src: "./Assets/images/selection.png" },
-        { id: "bg1", src: "./Assets/images/bg1.png" }
+        { id: "bg1", src: "./Assets/images/bg1.png" },
+        { id: "start", src: "./Assets/images/start.png" },
+        { id: "gameOver", src: "./Assets/images/gameover.png" },
+        { id: "tankMove", src: "./Assets/audio/tankMove.mp3" },
+        { id: "fire", src: "./Assets/audio/fire.mp3" },
+        { id: "explosion", src: "./Assets/audio/explosion.mp3" }
     ];
     // preloads assets
     function Init() {
@@ -41,7 +45,8 @@
         Core.GameManager.stage = stage;
         Core.GameManager.currentScene = config.Scene.START;
         currentState = config.Scene.START;
-        document.addEventListener('keydown', DetectKey);
+        keyBoardManager = new managers.KeyboardManager();
+        Core.GameManager.keyboardManager = keyBoardManager;
         console.log("Listening to Keyboad...");
         Main();
     }
@@ -69,9 +74,6 @@
         }
         currentState = Core.GameManager.currentScene;
         stage.addChild(currentScene);
-    }
-    function DetectKey(event) {
-        Core.GameManager.KeyboardEvent = event;
     }
     window.onload = Init;
 })();

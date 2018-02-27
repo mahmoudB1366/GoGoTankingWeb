@@ -26,15 +26,16 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         OverScene.prototype.Start = function () {
-            this._overLabel = new base.Label("The Winner is: " + Core.GameManager.Level1Winner, "30px", "Consolas", "#000000", 320, 240, true);
+            this._overLabel = new base.Label("The Winner is: " + Core.GameManager.Level1Winner, "30px", "Consolas", "#e5e5e5", 320, 240, true);
             this._backButton = new base.Button("backButton", 320, 340);
+            this._background = new Levels.Background("gameOver");
             this.Main();
         };
         OverScene.prototype.Update = function () {
         };
         // This is where the fun happens
         OverScene.prototype.Main = function () {
-            // add the welcome label to the scene
+            this.addChild(this._background);
             this.addChild(this._overLabel);
             // add the backButton to the scene
             this.addChild(this._backButton);

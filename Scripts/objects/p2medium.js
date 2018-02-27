@@ -34,11 +34,11 @@ var objects;
         };
         //set Controllers
         P2Medium.prototype.setController = function () {
-            this._left = Core.GameManager.P2_LEFT;
-            this._right = Core.GameManager.P2_RIGHT;
-            this._up = Core.GameManager.P2_UP;
-            this._down = Core.GameManager.P2_DOWN;
-            this._fire = Core.GameManager.P2_FIRE;
+            this._moveLeft = Core.GameManager.keyboardManager.P2Left;
+            this._moveRight = Core.GameManager.keyboardManager.P2Right;
+            this._moveUp = Core.GameManager.keyboardManager.P2Up;
+            this._moveDown = Core.GameManager.keyboardManager.P2Down;
+            this._startFire = Core.GameManager.keyboardManager.P2Fire;
         };
         // public methods
         // Initializes variables and creates new objects

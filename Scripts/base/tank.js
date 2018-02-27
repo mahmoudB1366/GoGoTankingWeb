@@ -12,33 +12,25 @@ var base;
 (function (base) {
     var Tank = /** @class */ (function (_super) {
         __extends(Tank, _super);
+        // public properties
         // constructors
         function Tank(imageString) {
-            var _this = _super.call(this, Core.GameManager.assetManager.getResult(imageString)) || this;
+            var _this = _super.call(this, imageString) || this;
             _this.name = imageString;
-            _this._initialize();
+            //this._initialize();
+            _this.Start();
             return _this;
         }
         // private methods
-        Tank.prototype._initialize = function () {
-            this.Width = this.getBounds().width;
-            this.Height = this.getBounds().height;
-            this.HalfWidth = this.Width * 0.5;
-            this.HalfHeight = this.Height * 0.5;
-            this.regX = this.HalfWidth;
-            this.regY = this.HalfHeight;
-            this.Start();
-        };
         // public methods
         Tank.prototype.Start = function () {
         };
         Tank.prototype.Update = function () {
-            this._keyboardEvent = Core.GameManager.KeyboardEvent;
             this.Move();
             this.CheckBounds();
             if (this._bullet != null) {
                 this._bullet.Update();
-                if (this._bullet.IsOut()) {
+                if (this._bullet.IsBulletOut()) {
                     this._bullet = null;
                 }
             }
@@ -46,6 +38,8 @@ var base;
         Tank.prototype.Reset = function () {
         };
         Tank.prototype.fire = function () {
+        };
+        Tank.prototype.setController = function () {
         };
         Tank.prototype.CheckBounds = function () {
             //right boundary
@@ -66,39 +60,52 @@ var base;
             }
         };
         Tank.prototype.Move = function () {
-            if (this._keyboardEvent != null) {
-                switch (this._keyboardEvent.key) {
-                    case this._left:
-                        this.x -= this._tankSpeed;
-                        this.rotation = -90;
-                        Core.GameManager.KeyboardEvent = null;
-                        break;
-                    case this._right:
-                        this.x += this._tankSpeed;
-                        this.rotation = +90;
-                        Core.GameManager.KeyboardEvent = null;
-                        break;
-                    case this._down:
-                        this.y += this._tankSpeed;
-                        this.rotation = 180;
-                        Core.GameManager.KeyboardEvent = null;
-                        break;
-                    case this._up:
-                        this.y -= this._tankSpeed;
-                        this.rotation = 0;
-                        Core.GameManager.KeyboardEvent = null;
-                        break;
-                    case this._fire:
-                        if (this._bullet == null) {
-                            this.fire();
-                        }
-                        Core.GameManager.KeyboardEvent = null;
-                        break;
+            this.setController();
+            if ((this._moveLeft) && (this._moveUp)) {
+                this.x -= this._tankSpeed;
+                this.y -= this._tankSpeed;
+                this.rotation = -45;
+            }
+            else if ((this._moveLeft) && (this._moveDown)) {
+                this.x -= this._tankSpeed;
+                this.y += this._tankSpeed;
+                this.rotation = -135;
+            }
+            else if ((this._moveRight) && (this._moveDown)) {
+                this.x += this._tankSpeed;
+                this.y += this._tankSpeed;
+                this.rotation = 135;
+            }
+            else if ((this._moveRight) && (this._moveUp)) {
+                this.x += this._tankSpeed;
+                this.y -= this._tankSpeed;
+                this.rotation = 45;
+            }
+            else if (this._moveLeft) {
+                this.x -= this._tankSpeed;
+                this.rotation = -90;
+            }
+            else if (this._moveRight) {
+                this.x += this._tankSpeed;
+                this.rotation = 90;
+            }
+            else if (this._moveUp) {
+                this.y -= this._tankSpeed;
+                this.rotation = 0;
+            }
+            else if (this._moveDown) {
+                this.y += this._tankSpeed;
+                this.rotation = 180;
+            }
+            else if (this._startFire) {
+                if (this._bullet == null) {
+                    createjs.Sound.play("fire");
+                    this.fire();
                 }
             }
         };
         return Tank;
-    }(createjs.Bitmap));
+    }(base.GameObject));
     base.Tank = Tank;
 })(base || (base = {}));
 //# sourceMappingURL=tank.js.map

@@ -14,17 +14,20 @@
   <!-- JavaScript Section -->
 
   <!-- CreateJS Libraries -->
-  <script src="./node_modules/easeljs/lib/easeljs.min.js"></script>
-  <script src="./node_modules/tweenjs/lib/tweenjs.min.js"></script>
-  <script src="./node_modules/soundjs/lib/soundjs.min.js"></script>
-  <script src="./node_modules/preloadjs/lib/preloadjs.min.js"></script>
+<script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tweenjs/1.0.2/tweenjs.min.js"></script>
+  <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
 
   <!-- Game Scripts -->
 
   <!-- Configuration Files -->
   <script src="./Scripts/config/scene.js"></script>
   <script src="./Scripts/config/tankTypes.js"></script>
- 
+  <script src="./Scripts/config/controllers.js"></script>
+
+  <script src="./Scripts/managers/keyboardManager.js"></script>
+  <script src="./Scripts/managers/collisionManager.js"></script>
   <!-- Base objects -->
   
   <script src="./Scripts/base/label.js"></script>
@@ -36,13 +39,19 @@
 
   <!-- Game Objects -->
 
-  <script src="./Scripts/levels/level1.js"></script>
-  <script src="./Scripts/objects/p1medium.js"></script>
-  <script src="./Scripts/objects/p2medium.js"></script>
+  <script src="./Scripts/levels/background.js"></script>
+
+  <script src="./Scripts/tools/vec2.js"></script>
+
+
   <script src="./Scripts/objects/bullet1.js"></script>
   <script src="./Scripts/objects/bullet2.js"></script>
   <script src="./Scripts/objects/p2heavy.js"></script>
   <script src="./Scripts/objects/p1heavy.js"></script>
+  <script src="./Scripts/objects/p1medium.js"></script>
+  <script src="./Scripts/objects/p2medium.js"></script>
+  <script src="./Scripts/objects/p1light.js"></script>
+  <script src="./Scripts/objects/p2light.js"></script>
   <!-- Scenes -->
   <script src="./Scripts/scenes/over.js"></script>
   <script src="./Scripts/scenes/play.js"></script>

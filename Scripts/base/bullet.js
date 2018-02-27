@@ -14,7 +14,7 @@ var base;
         __extends(Bullet, _super);
         // constructors
         function Bullet(x, y, angel, speed, range, power) {
-            var _this = _super.call(this, Core.GameManager.assetManager.getResult("bullet")) || this;
+            var _this = _super.call(this, "bullet") || this;
             _this.name = "bullet";
             _this._initX = x;
             _this._initY = y;
@@ -22,33 +22,11 @@ var base;
             _this._speed = speed;
             _this._range = range;
             _this._power = power;
-            _this._initialize();
+            _this.Start();
             return _this;
         }
-        // private methods
-        Bullet.prototype._initialize = function () {
-            this.Width = this.getBounds().width;
-            this.Height = this.getBounds().height;
-            this.HalfWidth = this.Width * 0.5;
-            this.HalfHeight = this.Height * 0.5;
-            this.regX = this.HalfWidth;
-            this.regY = this.HalfHeight;
-            this.x = this._initX;
-            this.y = this._initY;
-            this.Start();
-        };
-        // public methods
-        Bullet.prototype.Start = function () {
-        };
-        Bullet.prototype.Update = function () {
-            this.Move();
-            this.IsColliding();
-            //
-        };
-        Bullet.prototype.IsColliding = function () {
-            return "";
-        };
-        Bullet.prototype.IsOut = function () {
+        // public properties
+        Bullet.prototype.IsBulletOut = function () {
             //right boundary
             if (this.x >= 640 + this.HalfWidth) {
                 return true;
@@ -64,13 +42,43 @@ var base;
             }
             return false;
         };
+        // private methods
+        // public methods
+        Bullet.prototype.Start = function () {
+            this.x = this._initX;
+            this.y = this._initY;
+        };
+        Bullet.prototype.Update = function () {
+            this.Move();
+            this.IsColliding2();
+            //
+        };
+        Bullet.prototype.IsColliding2 = function () {
+            return "";
+        };
         Bullet.prototype.Move = function () {
             switch (this._angel) {
+                case -45:
+                    this.x -= this._speed;
+                    this.y -= this._speed;
+                    break;
                 case -90:
                     this.x -= this._speed;
                     break;
+                case -135:
+                    this.x -= this._speed;
+                    this.y += this._speed;
+                    break;
+                case +45:
+                    this.x += this._speed;
+                    this.y -= this._speed;
+                    break;
                 case 90:
                     this.x += this._speed;
+                    break;
+                case +135:
+                    this.x += this._speed;
+                    this.y += this._speed;
                     break;
                 case 180:
                     this.y += this._speed;
@@ -81,7 +89,7 @@ var base;
             }
         };
         return Bullet;
-    }(createjs.Bitmap));
+    }(base.GameObject));
     base.Bullet = Bullet;
 })(base || (base = {}));
 //# sourceMappingURL=bullet.js.map

@@ -1,70 +1,18 @@
 module base {
-    export abstract class Bullet extends createjs.Bitmap {
+    export abstract class Bullet extends base.GameObject {
       // private instance variables
-      protected _range: number;
-      protected _speed: number;
-      protected _power: number;
-      protected _initX: number;
-      protected _initY: number;
-      protected _angel : number;
+      public _range: number;
+      public _speed: number;
+      public _power: number;
+      public _initX: number;
+      public _initY: number;
+      public _angel : number;
 
       protected _enemy : string;
       protected _enemyTank : base.Tank;
 
       // public properties
-      public Width: number;
-      public Height: number;
-      public HalfWidth: number;
-      public HalfHeight: number;
-      public LayerIndex : number;
-      
-      
-  
-      // constructors
-      constructor(x:number,y:number,angel:number,speed:number,range:number,power:number) {
-        super(Core.GameManager.assetManager.getResult("bullet"));
-        this.name ="bullet";
-        this._initX = x;
-        this._initY = y;
-        this._angel = angel;
-        this._speed = speed;
-        this._range = range;
-        this._power = power;
-
-        this._initialize();
-    }
-      // private methods
-      private _initialize():void {
-        this.Width = this.getBounds().width;
-        this.Height = this.getBounds().height;
-        this.HalfWidth = this.Width * 0.5;
-        this.HalfHeight = this.Height * 0.5;
-        this.regX = this.HalfWidth;
-        this.regY = this.HalfHeight;
-
-        this.x = this._initX;
-        this.y = this._initY;
-
-        this.Start();
-      }
-  
-      // public methods
-      public Start(): void {
-
-      }
-  
-      public Update(): void {
-        
-        this.Move();
-        this.IsColliding();
-        //
-      }
-  
-      protected IsColliding():string {
-  return "";
-      }
-  
-      public IsOut():boolean {
+      public IsBulletOut():boolean {
         //right boundary
         if(this.x >= 640 + this.HalfWidth) {
         return true;
@@ -86,16 +34,68 @@ module base {
         
 
       }
+      
+  
+      // constructors
+      constructor(x:number,y:number,angel:number,speed:number,range:number,power:number) {
+        super("bullet");
+        this.name ="bullet";
+        this._initX = x;
+        this._initY = y;
+        this._angel = angel;
+        this._speed = speed;
+        this._range = range;
+        this._power = power;
+
+         this.Start();
+    }
+      // private methods
+
+  
+      // public methods
+      public Start(): void {
+        this.x = this._initX;
+        this.y = this._initY;
+      }
+  
+      public Update(): void {
+        
+        this.Move();
+        this.IsColliding2();
+        //
+      }
+  
+      protected IsColliding2():string {
+  return "";
+      }
+  
+      
   
       public Move():void {
         
          switch(this._angel) {
-          case -90:
+          case -45:
             this.x-=this._speed;
+            this.y-=this._speed;
           break;
+          case -90:
+          this.x-=this._speed;
+        break;
+        case -135:
+        this.x-=this._speed;
+        this.y+=this._speed;
+      break;
+      case +45:
+      this.x+=this._speed;
+      this.y-=this._speed;
+    break;
           case 90:
             this.x+=this._speed;
           break;
+          case +135:
+          this.x+=this._speed;
+          this.y+=this._speed;
+        break;
           case 180:
             this.y+=this._speed;
           break;

@@ -13,20 +13,21 @@ var base;
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
         // constructors
-        function GameObject(assetManager, imageString) {
-            var _this = _super.call(this, assetManager.getResult(imageString)) || this;
+        function GameObject(imageString) {
+            var _this = _super.call(this, Core.GameManager.assetManager.getResult(imageString)) || this;
             _this.name = imageString;
             _this._initialize();
             return _this;
         }
         // private methods
         GameObject.prototype._initialize = function () {
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-            this.halfWidth = this.width * 0.5;
-            this.halfHeight = this.height * 0.5;
-            this.regX = this.halfWidth;
-            this.regY = this.halfHeight;
+            this.Width = this.getBounds().width;
+            this.Height = this.getBounds().height;
+            this.HalfWidth = this.Width * 0.5;
+            this.HalfHeight = this.Height * 0.5;
+            this.regX = this.HalfWidth;
+            this.regY = this.HalfHeight;
+            this.IsColliding = false;
         };
         // public methods
         GameObject.prototype.Start = function () {

@@ -12,9 +12,6 @@ var scenes;
 (function (scenes) {
     var PlayScene = /** @class */ (function (_super) {
         __extends(PlayScene, _super);
-        //private _island: objects.Island;
-        //private _clouds: objects.Cloud[];
-        // private _cloudNum: number;
         // Public Properties
         // Constructor
         function PlayScene() {
@@ -23,6 +20,18 @@ var scenes;
             return _this;
         }
         // Private Mathods
+        PlayScene.prototype.CheckCollisions = function () {
+            var _bullet1 = this.getChildByName("Bullet1");
+            var _bullet2 = this.getChildByName("Bullet2");
+            var _player1 = this.getChildByName("Player1");
+            var _player2 = this.getChildByName("Player2");
+            if (_bullet1 != null) {
+                managers.Collision.CheckBullet(_bullet1, _player2, "Player2");
+            }
+            if (_bullet2 != null) {
+                managers.Collision.CheckBullet(_bullet2, _player1, "Player1");
+            }
+        };
         PlayScene.prototype.updateLables = function () {
             this._frameCounter += 1;
             if (this._frameCounter >= 60) {
@@ -42,6 +51,7 @@ var scenes;
                     this.removeChild(this._player1);
                     this._player1 = null;
                     Core.GameManager.Level1Winner = "Player2";
+                    this._tankSound.stop();
                     Core.GameManager.currentScene = config.Scene.OVER;
                 }
             }
@@ -51,6 +61,7 @@ var scenes;
                     this.removeChild(this._player2);
                     this._player2 = null;
                     Core.GameManager.Level1Winner = "Player1";
+                    this._tankSound.stop();
                     Core.GameManager.currentScene = config.Scene.OVER;
                 }
             }
@@ -64,7 +75,7 @@ var scenes;
                     this._player1 = new objects.P1Medium();
                     break;
                 case config.tankTypes.LIGHT:
-                    this._player1 = new objects.P1Medium();
+                    this._player1 = new objects.P1Light();
                     break;
             }
             switch (Core.GameManager.Player2TankType) {
@@ -75,23 +86,29 @@ var scenes;
                     this._player2 = new objects.P2Medium();
                     break;
                 case config.tankTypes.LIGHT:
-                    this._player2 = new objects.P2Medium();
+                    this._player2 = new objects.P2Light();
                     break;
             }
+            this._player1.name = "Player1";
+            this._player2.name = "Player2";
         };
         // Public Methods
         // Initialize Game Variables and objects
         PlayScene.prototype.Start = function () {
             Core.GameManager.Timer = 90;
             this._frameCounter = 0;
-            this._background = new Levels.Level1();
+            this._background = new Levels.Background("bg1");
             this._p1Label = new base.Label("Player1: " + Core.GameManager.P1Health, "16px", "Consolas", "#000000", 100, 15, true);
             this._p2Label = new base.Label("Player2: " + Core.GameManager.P2Health, "16px", "Consolas", "#000000", 600, 15, true);
             this._timerLabel = new base.Label("|" + Core.GameManager.Timer + "|", "16px", "Consolas", "#000000", 320, 15, true);
             this.setupTankTypes();
+            this._tankSound = createjs.Sound.play("tankMove");
+            this._tankSound.loop = -1;
+            this._tankSound.volume = 0.3;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
+            this.CheckCollisions();
             this.updateLables();
             this._background.Update();
             this.checkLives();

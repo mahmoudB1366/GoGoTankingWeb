@@ -3,6 +3,8 @@ module scenes {
     // Private Instance Variables
     private _overLabel: base.Label;
     private _backButton: base.Button;
+    private _background:Levels.Background;
+
 
     // Public Properties
 
@@ -23,8 +25,9 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
-      this._overLabel = new base.Label("The Winner is: " + Core.GameManager.Level1Winner, "30px", "Consolas", "#000000", 320, 240, true);
+      this._overLabel = new base.Label("The Winner is: " + Core.GameManager.Level1Winner, "30px", "Consolas", "#e5e5e5", 320, 240, true);
       this._backButton = new base.Button("backButton", 320, 340);
+      this._background = new Levels.Background("gameOver");
       this.Main();
     }
 
@@ -34,7 +37,7 @@ module scenes {
 
     // This is where the fun happens
     public Main(): void {
-      // add the welcome label to the scene
+      this.addChild(this._background);
       this.addChild(this._overLabel);
 
       // add the backButton to the scene

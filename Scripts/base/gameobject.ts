@@ -10,11 +10,11 @@ module base {
     public HalfWidth: number;
     public HalfHeight: number;
     public IsColliding: boolean;
+    public Life : number;
 
     // constructors
     constructor( imageString:string) {
       super(Core.GameManager.assetManager.getResult(imageString));
-      this.name = imageString;
       this._initialize();
   }
     // private methods
@@ -26,27 +26,10 @@ module base {
       this.regX = this.HalfWidth;
       this.regY = this.HalfHeight;
       this.IsColliding = false;
+      this.Life = 10; // Different from tank's health value
     }
 
     // public methods
-    public Start(): void {
-
-    }
-
-    public Update(): void {
-
-    }
-
-    public Reset():void {
-
-    }
-
-    public CheckBounds():void {
-
-    }
-
-    public Move():void {
-
-    }
+    
   }
 }

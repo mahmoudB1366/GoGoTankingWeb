@@ -3,32 +3,93 @@ var managers;
     var Collision = /** @class */ (function () {
         function Collision() {
         }
-        Collision.CheckBullet = function (object1, object2, enemyName) {
+        Collision.CheckBullet = function (itSelf, objects, enemyName) {
             // define points for both object1 and object2
-            var P1 = new math.Vec2(object1.x, object1.y);
-            var P2 = new math.Vec2(object2.x, object2.y);
-            // check if there is a collision
-            if (math.Vec2.Distance(P1, P2) < (object1.HalfHeight + object2.HalfHeight)) {
-                if (!object2.IsColliding) {
-                    object2.IsColliding = true;
-                    createjs.Sound.play("explosion");
-                    switch (object2.name) {
-                        case enemyName:
-                            //createjs.Sound.play("yay");
-                            if (enemyName == "Player2")
-                                Core.GameManager.P2Health -= object1._power;
-                            else if (enemyName == "Player1")
-                                Core.GameManager.P1Health -= object1._power;
-                            object1.parent.removeChild(object1);
-                            break;
-                        case "stone":
-                            //createjs.Sound.play("thunder");
-                            break;
+            var i = 0;
+            var P1 = new math.Vec2(itSelf.x, itSelf.y);
+            while (objects[i] != null) {
+                var P2 = new math.Vec2(objects[i].x, objects[i].y);
+                // check if there is a collision
+                if ((math.Vec2.Distance(P1, P2) < (itSelf.HalfHeight + objects[i].HalfHeight))
+                    || (math.Vec2.Distance(P1, P2) < (itSelf.HalfWidth + objects[i].HalfWidth))) {
+                    if (!objects[i].IsColliding) {
+                        objects[i].IsColliding = true;
+                        console.log("colide with :" + objects[i].name);
+                        console.log("enemy Name :" + enemyName);
+                        switch (objects[i].name) {
+                            case enemyName:
+                                //createjs.Sound.play("yay");
+                                if (enemyName == "Player2")
+                                    Core.GameManager.P2Health -= itSelf._power;
+                                if (enemyName == "Player1")
+                                    Core.GameManager.P1Health -= itSelf._power;
+                                break;
+                            case "stone":
+                                createjs.Sound.play("explosion");
+                                break;
+                            case "wood":
+                                createjs.Sound.play("explosion");
+                                break;
+                            default:
+                                continue;
+                        }
+                        itSelf.x = 10000;
+                        itSelf.y = 10000;
                     }
                 }
+                else {
+                    objects[i].IsColliding = false;
+                }
+                ++i;
+            }
+        };
+        Collision.CheckTank = function (itSelf, objects, enemyName) {
+            // define points for both object1 and object2
+            var i = 0;
+            var P1 = new math.Vec2(itSelf.x, itSelf.y);
+            while (objects[i] != null) {
+                var P2 = new math.Vec2(objects[i].x, objects[i].y);
+                // check if there is a collision
+                if ((math.Vec2.Distance(P1, P2) < (itSelf.HalfHeight + objects[i].HalfHeight))
+                    || (math.Vec2.Distance(P1, P2) < (itSelf.HalfWidth + objects[i].HalfWidth))) {
+                    if (itSelf.name == objects[i].name) {
+                        ++i;
+                        continue;
+                    }
+                    if (!objects[i].IsColliding) {
+                        objects[i].IsColliding = true;
+                        switch (objects[i].name) {
+                            case "stone":
+                            case "wood":
+                            case "sea":
+                            case enemyName:
+                                this.forceOut(itSelf, objects[i]);
+                                //Customize if required
+                                break;
+                            case "mine":
+                                itSelf.parent.removeChild(itSelf);
+                                break;
+                        }
+                    }
+                }
+                else {
+                    objects[i].IsColliding = false;
+                }
+                ++i;
+            }
+        };
+        Collision.forceOut = function (tank, obstacle) {
+            if ((tank.x < obstacle.x) && (tank.rotation >= 45) && (tank.rotation <= 135)) {
+                tank.x = obstacle.x - obstacle.HalfWidth - tank.HalfWidth - 2;
+            }
+            else if ((tank.x > obstacle.x) && (tank.rotation <= -45) && (tank.rotation >= -135)) {
+                tank.x = obstacle.x + obstacle.HalfWidth + tank.HalfWidth + 2;
+            }
+            else if ((tank.y > obstacle.y)) {
+                tank.y = obstacle.y + obstacle.HalfHeight + tank.HalfHeight + 2;
             }
             else {
-                object2.IsColliding = false;
+                tank.y = obstacle.y - obstacle.HalfHeight - tank.HalfHeight - 2;
             }
         };
         return Collision;

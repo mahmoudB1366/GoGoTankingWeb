@@ -16,44 +16,8 @@ var objects;
         // public properties
         // Constructor
         function P1Heavy() {
-            var _this = _super.call(this, "p1heavy") || this;
-            _this.setTankProperties();
-            _this.setController();
-            _this.Start();
-            return _this;
+            return _super.call(this, "p1heavy", "Player1", config.tankTypes.HEAVY) || this;
         }
-        // private methods
-        //set Tank Properties
-        P1Heavy.prototype.setTankProperties = function () {
-            this._tankSpeed = Core.GameManager.H_tank_speed;
-            this._bulletSpeed = Core.GameManager.H_bullet_speed;
-            this._bulletRange = Core.GameManager.H_bullet_range;
-            this._bulletPower = Core.GameManager.H_bullet_power;
-            this._tankLife = 100;
-            Core.GameManager.P1Health = 100;
-        };
-        //set Controllers
-        P1Heavy.prototype.setController = function () {
-            this._moveLeft = Core.GameManager.keyboardManager.P1Left;
-            this._moveRight = Core.GameManager.keyboardManager.P1Right;
-            this._moveUp = Core.GameManager.keyboardManager.P1Up;
-            this._moveDown = Core.GameManager.keyboardManager.P1Down;
-            this._startFire = Core.GameManager.keyboardManager.P1Fire;
-        };
-        // public methods
-        // Initializes variables and creates new objects
-        P1Heavy.prototype.Start = function () {
-            this.y = 430;
-            this.x = 200;
-        };
-        // updates the game object every frame
-        P1Heavy.prototype.Update = function () {
-            _super.prototype.Update.call(this);
-        };
-        P1Heavy.prototype.fire = function () {
-            this._bullet = new objects.Bullet1(this.x, this.y, this.rotation, this._bulletSpeed, this._bulletRange, this._bulletPower);
-            this.parent.addChild(this._bullet);
-        };
         return P1Heavy;
     }(base.Tank));
     objects.P1Heavy = P1Heavy;

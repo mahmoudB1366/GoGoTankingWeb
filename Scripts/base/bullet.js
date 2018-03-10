@@ -15,46 +15,34 @@ var base;
         // constructors
         function Bullet(x, y, angel, speed, range, power) {
             var _this = _super.call(this, "bullet") || this;
-            _this.name = "bullet";
             _this._initX = x;
             _this._initY = y;
             _this._angel = angel;
             _this._speed = speed;
             _this._range = range;
             _this._power = power;
+            _this.x = x;
+            _this.y = y;
             _this.Start();
             return _this;
         }
         // public properties
         Bullet.prototype.IsBulletOut = function () {
             //right boundary
-            if (this.x >= 640 + this.HalfWidth) {
-                return true;
+            if ((this.x >= 640 + this.HalfWidth) || (this.x <= -this.HalfWidth)
+                || (this.y <= -this.HalfHeight) || (this.y >= 480 + this.HalfHeight)) {
+                this.x = 10000;
+                this.y = 10000;
             }
-            else if (this.x <= -this.HalfWidth) {
-                return true;
-            }
-            else if (this.y <= -this.HalfHeight) {
-                return true;
-            }
-            else if (this.y >= 480 + this.HalfHeight) {
-                return true;
-            }
-            return false;
         };
         // private methods
         // public methods
         Bullet.prototype.Start = function () {
-            this.x = this._initX;
-            this.y = this._initY;
         };
         Bullet.prototype.Update = function () {
             this.Move();
-            this.IsColliding2();
+            this.IsBulletOut();
             //
-        };
-        Bullet.prototype.IsColliding2 = function () {
-            return "";
         };
         Bullet.prototype.Move = function () {
             switch (this._angel) {

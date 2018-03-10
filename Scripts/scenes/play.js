@@ -21,15 +21,29 @@ var scenes;
         }
         // Private Mathods
         PlayScene.prototype.CheckCollisions = function () {
+            var i = 0;
+            var _collidablesCounter = 0;
+            var _collidables = new Array();
             var _bullet1 = this.getChildByName("Bullet1");
             var _bullet2 = this.getChildByName("Bullet2");
             var _player1 = this.getChildByName("Player1");
             var _player2 = this.getChildByName("Player2");
+            _collidables[_collidablesCounter++] = _player2;
+            _collidables[_collidablesCounter++] = _player1;
+            while (this._obstacles[i] != null) {
+                _collidables[_collidablesCounter++] = this._obstacles[i++];
+            }
             if (_bullet1 != null) {
-                managers.Collision.CheckBullet(_bullet1, _player2, "Player2");
+                managers.Collision.CheckBullet(_bullet1, _collidables, "Player2");
             }
             if (_bullet2 != null) {
-                managers.Collision.CheckBullet(_bullet2, _player1, "Player1");
+                managers.Collision.CheckBullet(_bullet2, _collidables, "Player1");
+            }
+            if (_player1 != null) {
+                managers.Collision.CheckTank(_player1, _collidables, "Player2");
+            }
+            if (_player2 != null) {
+                managers.Collision.CheckTank(_player2, _collidables, "Player1");
             }
         };
         PlayScene.prototype.updateLables = function () {
@@ -91,6 +105,60 @@ var scenes;
             }
             this._player1.name = "Player1";
             this._player2.name = "Player2";
+            this._player1.x = 40;
+            this._player1.y = 240;
+            this._player2.x = 600;
+            this._player2.y = 240;
+        };
+        PlayScene.prototype.defineObstacles = function () {
+            var _obstacleCounter = 0;
+            this._obstacles = new Array();
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(130, 190, "stone");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(130, 240, "stone");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(130, 290, "stone");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(510, 190, "stone");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(510, 240, "stone");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(510, 290, "stone");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(160, 80, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210, 80, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(260, 80, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(160, 400, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210, 400, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(260, 400, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(480, 80, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(430, 80, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(380, 80, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(480, 400, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(430, 400, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(380, 400, "sea");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(160, 130, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210, 130, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210, 155, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(180, 155, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(145, 160, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(160, 350, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210, 350, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210, 325, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(180, 325, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(145, 320, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(480, 130, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(430, 130, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(430, 325, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(460, 325, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(495, 320, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(430, 155, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(460, 155, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(495, 160, "tree");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(260, 130, "wood");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(260, 350, "wood");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(380, 130, "wood");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(380, 350, "wood");
+        };
+        PlayScene.prototype.loadbstacles = function () {
+            var i = 0;
+            while (this._obstacles[i] != null) {
+                this.addChild(this._obstacles[i++]);
+            }
         };
         // Public Methods
         // Initialize Game Variables and objects
@@ -105,6 +173,7 @@ var scenes;
             this._tankSound = createjs.Sound.play("tankMove");
             this._tankSound.loop = -1;
             this._tankSound.volume = 0.3;
+            this.defineObstacles();
             this.Main();
         };
         PlayScene.prototype.Update = function () {
@@ -123,6 +192,9 @@ var scenes;
             this.addChild(this._p1Label);
             this.addChild(this._p2Label);
             this.addChild(this._timerLabel);
+            this.loadbstacles();
+            this.addChild(this._player1.Bullet);
+            this.addChild(this._player2.Bullet);
             Core.GameManager.playScene = this;
         };
         return PlayScene;

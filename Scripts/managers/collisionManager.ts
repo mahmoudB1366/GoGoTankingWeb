@@ -2,37 +2,113 @@ module managers {
   export class Collision {
 
 
-    public static CheckBullet(object1:base.GameObject, object2:base.GameObject,enemyName:string):void {
+    public static CheckBullet(itSelf: base.GameObject, objects: Array<base.GameObject>, enemyName: string): void {
       // define points for both object1 and object2
-      let P1 = new math.Vec2(object1.x, object1.y);
-      let P2 = new math.Vec2(object2.x, object2.y);
+      let i: number = 0;
+      let P1 = new math.Vec2(itSelf.x, itSelf.y);
+      while (objects[i] != null) {
 
-      // check if there is a collision
-      if(math.Vec2.Distance(P1, P2 ) <  (object1.HalfHeight + object2.HalfHeight) ) {
-          if(!object2.IsColliding) {
-            object2.IsColliding = true;
-            createjs.Sound.play("explosion");
-            switch(object2.name) {
+        let P2 = new math.Vec2(objects[i].x, objects[i].y);
+
+        // check if there is a collision
+        if ((math.Vec2.Distance(P1, P2) < (itSelf.HalfHeight + objects[i].HalfHeight))
+       || (math.Vec2.Distance(P1, P2) < (itSelf.HalfWidth + objects[i].HalfWidth))){
+          if (!objects[i].IsColliding) {
+            objects[i].IsColliding = true;
+            console.log("colide with :" + objects[i].name );
+            console.log("enemy Name :" +enemyName );
+            switch (objects[i].name) {
               case enemyName:
                 //createjs.Sound.play("yay");
                 if (enemyName == "Player2")
-                Core.GameManager.P2Health -=(object1 as base.Bullet)._power;
-                else if (enemyName == "Player1")
-                Core.GameManager.P1Health -=(object1 as base.Bullet)._power;
-                object1.parent.removeChild(object1);
-                
-              break;
-              case "stone":
-                //createjs.Sound.play("thunder");
-                
-              break;
-            }
+                  Core.GameManager.P2Health -= (itSelf as base.Bullet)._power;
+                if (enemyName == "Player1")
+                  Core.GameManager.P1Health -= (itSelf as base.Bullet)._power;
 
+
+                break;
+              case "stone":
+                createjs.Sound.play("explosion");
+                break;
+              case "wood":
+                createjs.Sound.play("explosion");
+                break;
+
+              default:
+                continue;
+
+            }
+            itSelf.x = 10000;
+            itSelf.y = 10000;
+            
           }
+        }
+        else {
+          objects[i].IsColliding = false;
+        }
+        ++i;
+      }
+    }
+
+
+    public static CheckTank(itSelf: base.GameObject, objects: Array<base.GameObject>, enemyName: string): void {
+      // define points for both object1 and object2
+      let i: number = 0;
+      let P1 = new math.Vec2(itSelf.x, itSelf.y);
+      while (objects[i] != null) {
+
+        let P2 = new math.Vec2(objects[i].x, objects[i].y);
+
+        // check if there is a collision
+        if ((math.Vec2.Distance(P1, P2) < (itSelf.HalfHeight + objects[i].HalfHeight))
+       || (math.Vec2.Distance(P1, P2) < (itSelf.HalfWidth + objects[i].HalfWidth))) {
+          if (itSelf.name == objects[i].name)
+          {
+            ++i;
+            continue;
+          }
+          if (!objects[i].IsColliding) {
+            
+            objects[i].IsColliding = true;
+            switch (objects[i].name) {
+              case "stone":
+              case "wood":
+              case "sea":
+              case enemyName:
+              this.forceOut(itSelf, objects[i]);
+               //Customize if required
+                break;
+
+              case "mine":
+              itSelf.parent.removeChild(itSelf);
+                break;
+
+
+            }
+          }
+        }
+        else {
+          objects[i].IsColliding = false;
+        }
+        ++i;
+      }
+    }
+
+
+    private static forceOut(tank: base.GameObject, obstacle: base.GameObject): void {
+      if ((tank.x < obstacle.x) && (tank.rotation >= 45) && (tank.rotation <= 135)) {
+        tank.x = obstacle.x - obstacle.HalfWidth - tank.HalfWidth - 2;
+      }
+      else if ((tank.x > obstacle.x) && (tank.rotation <= -45) && (tank.rotation >= -135)) {
+        tank.x = obstacle.x + obstacle.HalfWidth + tank.HalfWidth + 2;
+      }
+      else if ((tank.y > obstacle.y)) {
+        tank.y = obstacle.y + obstacle.HalfHeight + tank.HalfHeight + 2;
       }
       else {
-        object2.IsColliding = false;
+        tank.y = obstacle.y - obstacle.HalfHeight - tank.HalfHeight - 2;
       }
+
     }
   }
 }

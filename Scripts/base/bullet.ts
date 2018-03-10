@@ -12,40 +12,28 @@ module base {
       protected _enemyTank : base.Tank;
 
       // public properties
-      public IsBulletOut():boolean {
+      public IsBulletOut():void {
         //right boundary
-        if(this.x >= 640 + this.HalfWidth) {
-        return true;
-        }
-  
-        // left boundary
-       else if(this.x <= -this.HalfWidth) {
-        return true;
-        }
-        // up boundary
-        else if(this.y <= -this.HalfHeight) {
-            return true;
-        }
-        // down boundary
-        else if(this.y >= 480 + this.HalfHeight) {
-            return true;
-        }
-        return false;
-        
-
+        if((this.x >= 640 + this.HalfWidth) || (this.x <= -this.HalfWidth)
+        || (this.y <= -this.HalfHeight) || (this.y >= 480 + this.HalfHeight))
+        {
+          this.x = 10000;
+          this.y = 10000;
+        }     
       }
       
   
       // constructors
       constructor(x:number,y:number,angel:number,speed:number,range:number,power:number) {
         super("bullet");
-        this.name ="bullet";
         this._initX = x;
         this._initY = y;
         this._angel = angel;
         this._speed = speed;
         this._range = range;
         this._power = power;
+        this.x = x;
+        this.y = y;
 
          this.Start();
     }
@@ -54,25 +42,22 @@ module base {
   
       // public methods
       public Start(): void {
-        this.x = this._initX;
-        this.y = this._initY;
+
       }
   
       public Update(): void {
+    
+
         
         this.Move();
-        this.IsColliding2();
+        this.IsBulletOut();
         //
       }
   
-      protected IsColliding2():string {
-  return "";
-      }
   
       
   
       public Move():void {
-        
          switch(this._angel) {
           case -45:
             this.x-=this._speed;

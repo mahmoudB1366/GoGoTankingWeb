@@ -15,7 +15,6 @@ var base;
         // constructors
         function GameObject(imageString) {
             var _this = _super.call(this, Core.GameManager.assetManager.getResult(imageString)) || this;
-            _this.name = imageString;
             _this._initialize();
             return _this;
         }
@@ -28,17 +27,7 @@ var base;
             this.regX = this.HalfWidth;
             this.regY = this.HalfHeight;
             this.IsColliding = false;
-        };
-        // public methods
-        GameObject.prototype.Start = function () {
-        };
-        GameObject.prototype.Update = function () {
-        };
-        GameObject.prototype.Reset = function () {
-        };
-        GameObject.prototype.CheckBounds = function () {
-        };
-        GameObject.prototype.Move = function () {
+            this.Life = 10; // Different from tank's health value
         };
         return GameObject;
     }(createjs.Bitmap));

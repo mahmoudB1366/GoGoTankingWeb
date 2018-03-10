@@ -29,7 +29,11 @@
     {id: "gameOver", src:"./Assets/images/gameover.png"},
     {id: "tankMove", src:"./Assets/audio/tankMove.mp3"},
     {id: "fire", src:"./Assets/audio/fire.mp3"},
-    {id: "explosion", src:"./Assets/audio/explosion.mp3"}
+    {id: "explosion", src:"./Assets/audio/explosion.mp3"},
+    {id: "stone", src:"./Assets/images/stone.png"},
+    {id: "tree", src:"./Assets/images/tree.png"},
+    {id: "wood", src:"./Assets/images/wood.png"},
+    {id: "sea", src:"./Assets/images/sea.png"}
   ];
 
   // preloads assets

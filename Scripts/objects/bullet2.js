@@ -18,20 +18,8 @@ var objects;
         function Bullet2(x, y, angel, speed, range, power) {
             var _this = _super.call(this, x, y, angel, speed, range, power) || this;
             _this.name = "Bullet2";
-            _this._enemy = "Player1";
-            _this._enemyTank = Core.GameManager.playScene.getChildAt(1);
             return _this;
         }
-        Bullet2.prototype.IsColliding2 = function () {
-            if (this._enemyTank != null) {
-                if ((Math.abs(this.y - this._enemyTank.y) < (this.HalfHeight + this._enemyTank.HalfHeight))
-                    && (Math.abs(this.x - this._enemyTank.x) < (this.HalfWidth + this._enemyTank.HalfWidth))) {
-                    Core.GameManager.P1Health -= this._power;
-                    this.x = 10000;
-                }
-                return "";
-            }
-        };
         return Bullet2;
     }(base.Bullet));
     objects.Bullet2 = Bullet2;

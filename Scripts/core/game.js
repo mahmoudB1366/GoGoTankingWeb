@@ -22,6 +22,8 @@
         { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "selection", src: "./Assets/images/selection.png" },
         { id: "bg1", src: "./Assets/images/bg1.png" },
+        { id: "bg2", src: "./Assets/images/bg2.png" },
+        { id: "bg3", src: "./Assets/images/bg3.png" },
         { id: "start", src: "./Assets/images/start.png" },
         { id: "gameOver", src: "./Assets/images/gameover.png" },
         { id: "tankMove", src: "./Assets/audio/tankMove.mp3" },
@@ -30,7 +32,13 @@
         { id: "stone", src: "./Assets/images/stone.png" },
         { id: "tree", src: "./Assets/images/tree.png" },
         { id: "wood", src: "./Assets/images/wood.png" },
-        { id: "sea", src: "./Assets/images/sea.png" }
+        { id: "sea", src: "./Assets/images/sea.png" },
+        { id: "star", src: "./Assets/images/star.png" },
+        { id: "mine", src: "./Assets/images/mine.png" },
+        { id: "health", src: "./Assets/images/health.png" },
+        { id: "range", src: "./Assets/images/range.png" },
+        { id: "grass", src: "./Assets/images/grass.png" },
+        { id: "house", src: "./Assets/images/house.png" }
     ];
     // preloads assets
     function Init() {
@@ -69,8 +77,14 @@
             case config.Scene.START:
                 currentScene = new scenes.StartScene();
                 break;
-            case config.Scene.PLAY:
-                currentScene = new scenes.PlayScene();
+            case config.Scene.LEVEL1:
+                currentScene = new scenes.Level1Scene();
+                break;
+            case config.Scene.LEVEL2:
+                currentScene = new scenes.Level2Scene();
+                break;
+            case config.Scene.LEVEL3:
+                currentScene = new scenes.Level3Scene();
                 break;
             case config.Scene.OVER:
                 currentScene = new scenes.OverScene();

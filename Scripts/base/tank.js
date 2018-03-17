@@ -24,25 +24,25 @@ var base;
         // private methods
         //setup tank types
         Tank.prototype.setupTank = function () {
-            this._tankLife = 100;
+            this.TankLife = 100;
             switch (this._tankType) {
                 case config.tankTypes.HEAVY:
-                    this._tankSpeed = Core.GameManager.H_tank_speed;
-                    this._bulletSpeed = Core.GameManager.H_bullet_speed;
-                    this._bulletRange = Core.GameManager.H_bullet_range;
-                    this._bulletPower = Core.GameManager.H_bullet_power;
+                    this.TankSpeed = Core.GameManager.H_tank_speed;
+                    this.BulletSpeed = Core.GameManager.H_bullet_speed;
+                    this.BulletRange = Core.GameManager.H_bullet_range;
+                    this.BulletPower = Core.GameManager.H_bullet_power;
                     break;
                 case config.tankTypes.MEDIUM:
-                    this._tankSpeed = Core.GameManager.M_tank_speed;
-                    this._bulletSpeed = Core.GameManager.M_bullet_speed;
-                    this._bulletRange = Core.GameManager.M_bullet_range;
-                    this._bulletPower = Core.GameManager.M_bullet_power;
+                    this.TankSpeed = Core.GameManager.M_tank_speed;
+                    this.BulletSpeed = Core.GameManager.M_bullet_speed;
+                    this.BulletRange = Core.GameManager.M_bullet_range;
+                    this.BulletPower = Core.GameManager.M_bullet_power;
                     break;
                 case config.tankTypes.LIGHT:
-                    this._tankSpeed = Core.GameManager.L_tank_speed;
-                    this._bulletSpeed = Core.GameManager.L_bullet_speed;
-                    this._bulletRange = Core.GameManager.L_bullet_range;
-                    this._bulletPower = Core.GameManager.L_bullet_power;
+                    this.TankSpeed = Core.GameManager.L_tank_speed;
+                    this.BulletSpeed = Core.GameManager.L_bullet_speed;
+                    this.BulletRange = Core.GameManager.L_bullet_range;
+                    this.BulletPower = Core.GameManager.L_bullet_power;
                     break;
             }
         };
@@ -68,25 +68,25 @@ var base;
             this.Bullet.x = this.x;
             this.Bullet.y = this.y;
             this.Bullet._angel = this.rotation;
-            this.Bullet._speed = this._bulletSpeed;
-            this.Bullet._power = this._bulletPower;
-            this.Bullet._range = this._bulletRange;
+            this.Bullet._speed = this.BulletSpeed;
+            this.Bullet._power = this.BulletPower;
+            this.Bullet._range = this.BulletRange;
         };
         // setup controllers & detects pressed keys using keyboard manager
         Tank.prototype.setController = function () {
             if (this.name == "Player1") {
-                this._moveLeft = Core.GameManager.keyboardManager.P1Left;
-                this._moveRight = Core.GameManager.keyboardManager.P1Right;
-                this._moveUp = Core.GameManager.keyboardManager.P1Up;
-                this._moveDown = Core.GameManager.keyboardManager.P1Down;
-                this._startFire = Core.GameManager.keyboardManager.P1Fire;
+                this.MoveLeft = Core.GameManager.keyboardManager.P1Left;
+                this.MoveRight = Core.GameManager.keyboardManager.P1Right;
+                this.MoveUp = Core.GameManager.keyboardManager.P1Up;
+                this.MoveDown = Core.GameManager.keyboardManager.P1Down;
+                this.StartFire = Core.GameManager.keyboardManager.P1Fire;
             }
             else if (this.name == "Player2") {
-                this._moveLeft = Core.GameManager.keyboardManager.P2Left;
-                this._moveRight = Core.GameManager.keyboardManager.P2Right;
-                this._moveUp = Core.GameManager.keyboardManager.P2Up;
-                this._moveDown = Core.GameManager.keyboardManager.P2Down;
-                this._startFire = Core.GameManager.keyboardManager.P2Fire;
+                this.MoveLeft = Core.GameManager.keyboardManager.P2Left;
+                this.MoveRight = Core.GameManager.keyboardManager.P2Right;
+                this.MoveUp = Core.GameManager.keyboardManager.P2Up;
+                this.MoveDown = Core.GameManager.keyboardManager.P2Down;
+                this.StartFire = Core.GameManager.keyboardManager.P2Fire;
             }
         };
         //check bounds to avoid tanks go out of canvas
@@ -111,43 +111,43 @@ var base;
         //detects tank movements & moves the tank
         Tank.prototype.move = function () {
             this.setController();
-            if ((this._moveLeft) && (this._moveUp)) {
-                this.x -= this._tankSpeed;
-                this.y -= this._tankSpeed;
+            if ((this.MoveLeft) && (this.MoveUp)) {
+                this.x -= this.TankSpeed;
+                this.y -= this.TankSpeed;
                 this.rotation = -45;
             }
-            else if ((this._moveLeft) && (this._moveDown)) {
-                this.x -= this._tankSpeed;
-                this.y += this._tankSpeed;
+            else if ((this.MoveLeft) && (this.MoveDown)) {
+                this.x -= this.TankSpeed;
+                this.y += this.TankSpeed;
                 this.rotation = -135;
             }
-            else if ((this._moveRight) && (this._moveDown)) {
-                this.x += this._tankSpeed;
-                this.y += this._tankSpeed;
+            else if ((this.MoveRight) && (this.MoveDown)) {
+                this.x += this.TankSpeed;
+                this.y += this.TankSpeed;
                 this.rotation = 135;
             }
-            else if ((this._moveRight) && (this._moveUp)) {
-                this.x += this._tankSpeed;
-                this.y -= this._tankSpeed;
+            else if ((this.MoveRight) && (this.MoveUp)) {
+                this.x += this.TankSpeed;
+                this.y -= this.TankSpeed;
                 this.rotation = 45;
             }
-            else if (this._moveLeft) {
-                this.x -= this._tankSpeed;
+            else if (this.MoveLeft) {
+                this.x -= this.TankSpeed;
                 this.rotation = -90;
             }
-            else if (this._moveRight) {
-                this.x += this._tankSpeed;
+            else if (this.MoveRight) {
+                this.x += this.TankSpeed;
                 this.rotation = 90;
             }
-            else if (this._moveUp) {
-                this.y -= this._tankSpeed;
+            else if (this.MoveUp) {
+                this.y -= this.TankSpeed;
                 this.rotation = 0;
             }
-            else if (this._moveDown) {
-                this.y += this._tankSpeed;
+            else if (this.MoveDown) {
+                this.y += this.TankSpeed;
                 this.rotation = 180;
             }
-            else if (this._startFire) {
+            else if (this.StartFire) {
                 if (this.Bullet.x == 10000) {
                     createjs.Sound.play("fire");
                     this.fire();

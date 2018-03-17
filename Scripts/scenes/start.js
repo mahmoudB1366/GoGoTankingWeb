@@ -22,7 +22,7 @@ var scenes;
         // Private Mathods
         StartScene.prototype._startButtonClick = function () {
             if ((Core.GameManager.Player1TankType != null) && (Core.GameManager.Player1TankType != null)) {
-                Core.GameManager.currentScene = config.Scene.PLAY;
+                Core.GameManager.currentScene = config.Scene.LEVEL1;
             }
             else {
                 alert("Both Players need to select tank types!!!");

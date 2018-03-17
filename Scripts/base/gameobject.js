@@ -27,7 +27,7 @@ var base;
             this.regX = this.HalfWidth;
             this.regY = this.HalfHeight;
             this.IsColliding = false;
-            this.Life = 10; // Different from tank's health value
+            this.Life = 100; // Different from tank's health value
         };
         return GameObject;
     }(createjs.Bitmap));

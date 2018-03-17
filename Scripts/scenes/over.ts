@@ -17,7 +17,7 @@ module scenes {
 
     // Private Mathods
     private _backButtonClick():void {
-      Core.GameManager.currentScene = config.Scene.PLAY;
+      Core.GameManager.currentScene = config.Scene.LEVEL1;
     }
 
 

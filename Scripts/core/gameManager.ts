@@ -10,6 +10,9 @@ module Core {
       public static P1Health:number;
       public static P2Health:number;
 
+      public static P1Tank:base.Tank;
+      public static P2Tank:base.Tank;
+
 // Tanks Properties
       public static H_tank_speed = 1.5;
       public static H_bullet_range = 1.5;

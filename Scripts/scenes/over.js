@@ -21,7 +21,7 @@ var scenes;
         }
         // Private Mathods
         OverScene.prototype._backButtonClick = function () {
-            Core.GameManager.currentScene = config.Scene.PLAY;
+            Core.GameManager.currentScene = config.Scene.LEVEL1;
         };
         // Public Methods
         // Initialize Game Variables and objects

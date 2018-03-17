@@ -28,7 +28,7 @@ module scenes {
     private _startButtonClick():void {
       if ((Core.GameManager.Player1TankType !=null)&&(Core.GameManager.Player1TankType !=null))
       {
-        Core.GameManager.currentScene = config.Scene.PLAY;
+        Core.GameManager.currentScene = config.Scene.LEVEL1;
       }
       else
       {

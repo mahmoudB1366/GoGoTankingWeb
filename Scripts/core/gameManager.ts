@@ -4,6 +4,7 @@ module Core {
       public static assetManager: createjs.LoadQueue;
       public static currentScene: number;
       public static keyboardManager: managers.KeyboardManager;
+      public static textureAtlas: createjs.SpriteSheet;
       public static playScene : base.Scene;
       public static Timer:number;
 

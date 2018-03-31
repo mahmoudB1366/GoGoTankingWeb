@@ -8,7 +8,7 @@ var config;
         Controllers.P1_RIGHT = 'd';
         Controllers.P1_UP = 'w';
         Controllers.P1_DOWN = 's';
-        Controllers.P1_FIRE = 'm';
+        Controllers.P1_FIRE = 'q';
         //Player2
         Controllers.P2_LEFT = 'j';
         Controllers.P2_RIGHT = 'l';

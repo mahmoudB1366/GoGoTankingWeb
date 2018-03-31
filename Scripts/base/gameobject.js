@@ -10,11 +10,14 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var base;
 (function (base) {
+    //export class GameObject extends createjs.Bitmap {
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
         // constructors
         function GameObject(imageString) {
-            var _this = _super.call(this, Core.GameManager.assetManager.getResult(imageString)) || this;
+            var _this = 
+            //super(Core.GameManager.assetManager.getResult(imageString));
+            _super.call(this, Core.GameManager.textureAtlas, imageString) || this;
             _this._initialize();
             return _this;
         }
@@ -30,7 +33,7 @@ var base;
             this.Life = 100; // Different from tank's health value
         };
         return GameObject;
-    }(createjs.Bitmap));
+    }(createjs.Sprite));
     base.GameObject = GameObject;
 })(base || (base = {}));
 //# sourceMappingURL=gameobject.js.map

@@ -10,119 +10,6 @@
     var currentScene;
     var currentState;
     var keyBoardManager;
-    var textureAtlasData;
-    var textureAtlas;
-    textureAtlasData = {
-        "images": [
-            "./Assets/sprites/atlas.png"
-        ],
-        "frames": [
-            [218, 300, 9, 9, 0, 0, 0],
-            [2, 2, 49, 50, 0, 0, 0],
-            [2, 300, 25, 25, 0, 0, 0],
-            [29, 300, 25, 25, 0, 0, 0],
-            [53, 2, 50, 50, 0, 0, 0],
-            [56, 300, 25, 25, 0, 0, 0],
-            [83, 300, 25, 25, 0, 0, 0],
-            [2, 157, 48, 47, 0, 0, 0],
-            [52, 157, 48, 47, 0, 0, 0],
-            [102, 157, 48, 47, 0, 0, 0],
-            [152, 157, 48, 47, 0, 0, 0],
-            [86, 255, 40, 42, 0, 0, 0],
-            [194, 206, 40, 43, 0, 0, 0],
-            [152, 206, 40, 44, 0, 0, 0],
-            [2, 255, 40, 43, 0, 0, 0],
-            [40, 106, 36, 48, 0, 0, 0],
-            [158, 54, 36, 49, 0, 0, 0],
-            [105, 2, 36, 50, 0, 0, 0],
-            [196, 54, 36, 49, 0, 0, 0],
-            [202, 157, 48, 47, 0, 0, 0],
-            [2, 206, 48, 47, 0, 0, 0],
-            [52, 206, 48, 47, 0, 0, 0],
-            [102, 206, 48, 47, 0, 0, 0],
-            [212, 255, 40, 41, 0, 0, 0],
-            [128, 255, 40, 42, 0, 0, 0],
-            [44, 255, 40, 43, 0, 0, 0],
-            [170, 255, 40, 42, 0, 0, 0],
-            [78, 106, 36, 48, 0, 0, 0],
-            [116, 106, 36, 48, 0, 0, 0],
-            [2, 106, 36, 49, 0, 0, 0],
-            [154, 106, 36, 48, 0, 0, 0],
-            [110, 300, 25, 25, 0, 0, 0],
-            [191, 300, 25, 24, 0, 0, 0],
-            [143, 2, 50, 50, 0, 0, 0],
-            [137, 300, 25, 25, 0, 0, 0],
-            [164, 300, 25, 25, 0, 0, 0],
-            [195, 2, 50, 50, 0, 0, 0],
-            [192, 106, 50, 48, 0, 0, 0],
-            [2, 54, 50, 50, 0, 0, 0],
-            [54, 54, 50, 50, 0, 0, 0],
-            [106, 54, 50, 50, 0, 0, 0],
-        ],
-        "animations": {
-            "bullet": {
-                "frames": [0]
-            },
-            "grass": {
-                "frames": [1]
-            },
-            "health": {
-                "frames": [2, 3],
-                "speed": 0.03
-            },
-            "house": {
-                "frames": [4]
-            },
-            "mine": {
-                "frames": [5, 6],
-                "speed": 0.03
-            },
-            "p1heavy": {
-                "frames": [7, 8, 9, 10],
-                "speed": 0.2
-            },
-            "p1light": {
-                "frames": [11, 12, 13, 14],
-                "speed": 0.2
-            },
-            "p1medium": {
-                "frames": [15, 16, 17, 18],
-                "speed": 0.2
-            },
-            "p2heavy": {
-                "frames": [19, 20, 21, 22],
-                "speed": 0.2
-            },
-            "p2light": {
-                "frames": [23, 24, 25, 26],
-                "speed": 0.2
-            },
-            "p2medium": {
-                "frames": [27, 28, 29, 30],
-                "speed": 0.2
-            },
-            "range": {
-                "frames": [31, 32],
-                "speed": 0.03
-            },
-            "sea": {
-                "frames": [33]
-            },
-            "star": {
-                "frames": [34, 35],
-                "speed": 0.03
-            },
-            "stone": {
-                "frames": [36]
-            },
-            "tree": {
-                "frames": [37]
-            },
-            "wood": {
-                "frames": [38]
-            }
-        }
-    };
     assetManifest = [
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "backButton", src: "./Assets/images/backButton.png" },
@@ -170,8 +57,6 @@
     }
     function Start() {
         console.log("Starting Application...");
-        //textureAtlasData.images = [ assetManager.getResult("textureAtlas") ];
-        textureAtlas = new createjs.SpriteSheet(textureAtlasData);
         stage = new createjs.Stage(canvas);
         stage.enableMouseOver(20); // turn this on for buttons
         createjs.Ticker.framerate = 60; // 60 FPS
@@ -181,7 +66,6 @@
         currentState = config.Scene.START;
         keyBoardManager = new managers.KeyboardManager();
         Core.GameManager.keyboardManager = keyBoardManager;
-        Core.GameManager.textureAtlas = textureAtlas;
         console.log("Listening to Keyboad...");
         Main();
     }

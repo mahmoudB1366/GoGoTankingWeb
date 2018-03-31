@@ -6,7 +6,7 @@ module config {
         public static P1_RIGHT : string = 'd';
         public static P1_UP : string= 'w';
         public static P1_DOWN : string= 's';
-        public static P1_FIRE : string= 'm';
+        public static P1_FIRE : string= 'q';
   
         //Player2
         public static P2_LEFT : string= 'j';

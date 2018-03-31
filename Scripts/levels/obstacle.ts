@@ -10,6 +10,7 @@ module Levels {
         this.x = x;
         this.y =y;
         this.name = name;
+        
         this.Start();
       }
   

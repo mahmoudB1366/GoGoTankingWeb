@@ -1,5 +1,6 @@
 module base {
-  export class GameObject extends createjs.Bitmap {
+  //export class GameObject extends createjs.Bitmap {
+    export class GameObject extends createjs.Sprite {
     // private instance variables
     protected _dx: number;
     protected _dy: number;
@@ -14,7 +15,8 @@ module base {
 
     // constructors
     constructor( imageString:string) {
-      super(Core.GameManager.assetManager.getResult(imageString));
+      //super(Core.GameManager.assetManager.getResult(imageString));
+      super(Core.GameManager.textureAtlas,imageString);
       this._initialize();
   }
     // private methods

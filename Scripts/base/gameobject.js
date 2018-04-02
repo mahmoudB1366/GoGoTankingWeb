@@ -23,14 +23,19 @@ var base;
         }
         // private methods
         GameObject.prototype._initialize = function () {
+            this.UpdateProperties();
+            this.IsColliding = false;
+            this.onExplosion = false;
+            this.Life = 100; // Different from tank's health value
+        };
+        // public methods
+        GameObject.prototype.UpdateProperties = function () {
             this.Width = this.getBounds().width;
             this.Height = this.getBounds().height;
             this.HalfWidth = this.Width * 0.5;
             this.HalfHeight = this.Height * 0.5;
             this.regX = this.HalfWidth;
             this.regY = this.HalfHeight;
-            this.IsColliding = false;
-            this.Life = 100; // Different from tank's health value
         };
         return GameObject;
     }(createjs.Sprite));

@@ -97,28 +97,41 @@ var scenes;
         Level3Scene.prototype.checkLives = function () {
             if (this._player1 != null) {
                 this._player1.Update();
-                if (Core.GameManager.P1Health <= 0) {
+                if (Core.GameManager.P1Health <= 0 && !this._player1.onExplosion) {
+                    this._player1.gotoAndPlay("explosion");
+                    this._player1.onExplosion = true;
+                    // this._player1.Life = 999;
+                }
+                if (this._player1.onExplosion && this._player1.paused) {
                     this.removeChild(this._player1);
-                    this._player1 = null;
-                    Core.GameManager.Level1Winner = "Player2";
+                    Core.GameManager.Level3Winner = "Player2";
                     this._tankSound.stop();
                     Core.GameManager.currentScene = config.Scene.OVER;
+                    this._player1 = null;
                 }
             }
             if (this._player2 != null) {
                 this._player2.Update();
-                if (Core.GameManager.P2Health <= 0) {
+                if (Core.GameManager.P2Health <= 0 && !this._player2.onExplosion) {
+                    this._player2.gotoAndPlay("explosion");
+                    this._player2.onExplosion = true;
+                }
+                if (this._player2.onExplosion && this._player2.paused) {
                     this.removeChild(this._player2);
-                    this._player2 = null;
-                    Core.GameManager.Level1Winner = "Player1";
+                    Core.GameManager.Level3Winner = "Player1";
                     this._tankSound.stop();
                     Core.GameManager.currentScene = config.Scene.OVER;
+                    this._player2 = null;
                 }
             }
             if (this._obstacles != null)
                 if (this._obstacles.length > 0) {
                     for (var i = 0; i < this._obstacles.length; ++i) {
-                        if (this._obstacles[i].Life < 1) {
+                        if (this._obstacles[i].Life < 1 && !this._obstacles[i].onExplosion) {
+                            this._obstacles[i].gotoAndPlay("explosion");
+                            this._obstacles[i].onExplosion = true;
+                        }
+                        if (this._obstacles[i].onExplosion && this._obstacles[i].paused) {
                             this.removeChild(this._obstacles[i]);
                             this._obstacles[i].x = 12000;
                         }
@@ -160,60 +173,91 @@ var scenes;
         Level3Scene.prototype.defineObstacles = function () {
             var _obstacleCounter = 0;
             this._obstacles = new Array();
+            // Rock - stony field in the corners
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(25, 105, "stone");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(615, 375, "stone");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(145, 105, "stone");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(495, 375, "stone");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(265, 25, "stone");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(375, 455, "stone");
+            // Wood - central diamond
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(215, 265, "wood");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(425, 215, "wood");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(265, 145, "wood");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(375, 335, "wood");
+            // Houses - vertical
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(95, 215, "house");
-            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(385, 265, "house");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(545, 265, "house");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(95, 265, "house");
-            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(385, 315, "house");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(545, 215, "house");
+            // Houses - horizontal
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(215, 385, "house");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(425, 95, "house");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(265, 385, "house");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(375, 95, "house");
+            // Grass - vertical area, bottom left corner
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(25, 315, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(25, 355, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(25, 395, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(65, 315, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(65, 355, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(65, 395, "grass");
+            // fill gaps
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(45, 335, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(45, 375, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(85, 335, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(85, 375, "grass");
+            // Grass - horizontal area, bottom left corner
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(85, 415, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(125, 415, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(165, 415, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(85, 455, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(125, 455, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(165, 455, "grass");
+            // fill gaps
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(105, 435, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(145, 435, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(105, 395, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(145, 395, "grass");
+            // Grass - connecting triangle, bottom left corner
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(105, 315, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(105, 345, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(105, 375, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(135, 375, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(165, 375, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(135, 345, "grass");
+            // Grass - vertical area, top right corner
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(615, 165, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(615, 125, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(615, 85, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(575, 165, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(575, 125, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(575, 85, "grass");
+            // fill gaps
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(595, 145, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(595, 105, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(555, 145, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(555, 105, "grass");
+            // Grass - horizontal area, top right corner
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(555, 65, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(515, 65, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(475, 65, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(555, 25, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(515, 25, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(475, 25, "grass");
+            // fill gaps
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(535, 45, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(495, 45, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(535, 85, "grass");
+            this._obstacles[_obstacleCounter++] = new Levels.Obstacle(495, 85, "grass");
+            // Grass - connecting triangle, top right corner
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(535, 165, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(535, 135, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(535, 105, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(505, 105, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(475, 105, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(505, 135, "grass");
+            // Grass - top stony field
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(195, 75, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(230, 75, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(260, 75, "grass");
@@ -224,6 +268,7 @@ var scenes;
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(260, 95, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(295, 95, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(325, 95, "grass");
+            // Grass - bottom stony field
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(445, 405, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(410, 405, "grass");
             this._obstacles[_obstacleCounter++] = new Levels.Obstacle(380, 405, "grass");
@@ -247,13 +292,13 @@ var scenes;
             Core.GameManager.Timer = 90;
             this._frameCounter = 0;
             this._background = new Levels.Background("bg3");
-            this._p1Label = new base.Label("Player1: " + Core.GameManager.P1Health, "16px", "Consolas", "#000000", 100, 15, true);
-            this._p2Label = new base.Label("Player2: " + Core.GameManager.P2Health, "16px", "Consolas", "#000000", 600, 15, true);
-            this._timerLabel = new base.Label("|" + Core.GameManager.Timer + "|", "16px", "Consolas", "#000000", 320, 15, true);
+            this._p1Label = new base.Label("Player1: " + Core.GameManager.P1Health, "16px", "Impact", "#000000", 20, 15, false);
+            this._p2Label = new base.Label("Player2: " + Core.GameManager.P2Health, "16px", "Impact", "#000000", 540, 15, false);
+            this._timerLabel = new base.Label("|" + Core.GameManager.Timer + "|", "16px", "Impact", "#000000", 320, 15, true);
             this.setupTankTypes();
             this._tankSound = createjs.Sound.play("level3sd");
             this._tankSound.loop = -1;
-            this._tankSound.volume = 0.7;
+            this._tankSound.volume = 0.2;
             this._mine = new Levels.PopUp(5000, 5000, "mine");
             this._star = new Levels.PopUp(5000, 5000, "star");
             this._range = new Levels.PopUp(5000, 5000, "range");

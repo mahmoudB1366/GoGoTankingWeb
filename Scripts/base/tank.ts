@@ -80,8 +80,8 @@ module base {
 
      //fires the bullet
      private fire(): void {
-      this.Bullet.x = this.x;
-      this.Bullet.y = this.y;
+      this.Bullet.Fire(this.x,this.y);
+
       this.Bullet._angel = this.rotation;
       this.Bullet._speed = this.BulletSpeed;
       this.Bullet._power = this.BulletPower;
@@ -172,7 +172,8 @@ module base {
       else if (this.StartFire) {
 
         if (this.Bullet.x == 10000) {
-          createjs.Sound.play("fire");
+          let sound = createjs.Sound.play("fire");
+          sound.volume = 0.1;
           this.fire();
         }
       }
@@ -181,7 +182,6 @@ module base {
     // public methods
 
     public Update(): void {
-
       this.move();
       this.checkBounds();
 

@@ -25,7 +25,14 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
-      this._overLabel = new base.Label("The Winner is: " + Core.GameManager.Level1Winner, "30px", "Consolas", "#e5e5e5", 320, 240, true);
+      let _p1Score:number = 0;
+      let _p2Score:number = 0;
+      let _winner :string = "N/A";
+      (Core.GameManager.Level1Winner =="Player1")? ++_p1Score : ++_p2Score;
+      (Core.GameManager.Level2Winner =="Player1")? ++_p1Score : ++_p2Score;
+      (Core.GameManager.Level3Winner =="Player1")? ++_p1Score : ++_p2Score;
+      _winner = (_p1Score >_p2Score)? "Player1" : "Player2";
+      this._overLabel = new base.Label("The Winner is: " + _winner , "30px", "Impact", "#e5e5e5", 320, 240, true);
       this._backButton = new base.Button("backButton", 320, 340);
       this._background = new Levels.Background("gameOver");
       this.Main();

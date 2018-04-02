@@ -10,7 +10,7 @@ module base {
 
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
-
+            this.name = imageString;
             this.x = x;
             this.y = y;
 

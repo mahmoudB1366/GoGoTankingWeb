@@ -10,8 +10,7 @@ module scenes {
       private _frameCounter:number;
       private _popUpCounter:number;
       private _tankSound:createjs.AbstractSoundInstance;
-      private _obstacles :Array<base.GameObject>;
-  
+      private _obstacles :Array<base.GameObject>;  
       private _star:Levels.PopUp;
       private _health:Levels.PopUp;
       private _mine:Levels.PopUp;
@@ -114,9 +113,8 @@ module scenes {
       }
       this._frameCounter =0;
     }
-    
-    this._p1Label.text = "Player1: " + Core.GameManager.P1Health;
-    this._p2Label.text = "Player2: " + Core.GameManager.P2Health;
+    this._p1Label.SetText("Player1: " + Core.GameManager.P1Health);
+    this._p2Label.SetText("Player2: " + Core.GameManager.P2Health);
     
     if (Core.GameManager.Timer < 30)
     {
@@ -126,48 +124,53 @@ module scenes {
       this._timerLabel.text = "|" + Core.GameManager.Timer + "|";
     }
   }
-  private checkLives():void{
-    if (this._player1 !=null)
-        {
-          this._player1.Update();
-          if (Core.GameManager.P1Health <= 0)
-          {
-            this.removeChild(this._player1);
-            this._player1 = null;
-            Core.GameManager.Level1Winner = "Player2";
-            this._tankSound.stop();
-            Core.GameManager.currentScene = config.Scene.LEVEL3;
-            
-  
-          }
-        }
-        if (this._player2 !=null)
-        {
-          this._player2.Update();
-          if (Core.GameManager.P2Health <= 0)
-          {
-            this.removeChild(this._player2);
-            this._player2 = null;
-            Core.GameManager.Level1Winner = "Player1";
-            this._tankSound.stop();
-            Core.GameManager.currentScene = config.Scene.LEVEL3;
-            
-          }
-        }
-        if (this._obstacles !=null)
-        if (this._obstacles.length > 0 )
-        {
-  for (let i:number =0;i< this._obstacles.length; ++i)
-  {
-    if(this._obstacles[i].Life < 1)
-    {
-      this.removeChild(this._obstacles[i]);
-      this._obstacles[i].x = 12000;
+  private checkLives(): void {
+    if (this._player1 != null) {
+      this._player1.Update();
+      if (Core.GameManager.P1Health <= 0 && !this._player1.onExplosion) {
+        this._player1.gotoAndPlay("explosion");
+        this._player1.onExplosion = true;
+       // this._player1.Life = 999;
+      }
+      if (this._player1.onExplosion && this._player1.paused)
+      {
+        this.removeChild(this._player1);
+        Core.GameManager.Level2Winner = "Player2";
+        this._tankSound.stop();
+        Core.GameManager.currentScene = config.Scene.LEVEL3;
+        this._player1 = null;
+      }
     }
-  
-  }
+    if (this._player2 != null) {
+      this._player2.Update();
+      if (Core.GameManager.P2Health <= 0 && !this._player2.onExplosion) {
+        this._player2.gotoAndPlay("explosion");
+        this._player2.onExplosion = true;
+      }
+      if (this._player2.onExplosion && this._player2.paused)
+      {
+        this.removeChild(this._player2);
+        Core.GameManager.Level2Winner = "Player1";
+        this._tankSound.stop();
+        Core.GameManager.currentScene = config.Scene.LEVEL3;
+        this._player2 = null;
+      }
+
+    }
+    if (this._obstacles != null)
+      if (this._obstacles.length > 0) {
+        for (let i: number = 0; i < this._obstacles.length; ++i) {
+          if (this._obstacles[i].Life < 1 && !this._obstacles[i].onExplosion) {
+            this._obstacles[i].gotoAndPlay("explosion");
+            this._obstacles[i].onExplosion = true;
+          }
+          if (this._obstacles[i].onExplosion && this._obstacles[i].paused)
+            {
+              this.removeChild(this._obstacles[i]);
+              this._obstacles[i].x = 12000;
+            }
         }
-  
+      }
   }
   
   private setupTankTypes():void{
@@ -207,32 +210,42 @@ module scenes {
   private defineObstacles():void{
     let _obstacleCounter : number = 0;
     this._obstacles = new Array<base.GameObject>();
+   
+    // Rock - four corners
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(90,390,"stone");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(550,90,"stone");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(90,90,"stone");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(550,390,"stone");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(155,210,"stone");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(485,430,"stone");
+
+    // Rock - non-starting quadrants
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(95,90,"stone");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(545,390,"stone");
+
+    // Rock - horizontal middle of top
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(300,25,"stone");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(340,455,"stone");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(350,25,"stone");
+
+    // Rock - horizontal middle of bottom
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(340,455,"stone");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(290,455,"stone");
 
-
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210,330,"wood");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(270,310,"wood");
+    // Wood - constricting horizontal movement
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210,150,"wood");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(430,330,"wood");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(315,395,"wood");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(325,85,"wood");
     
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(25,265,"house");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(615,215,"house");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(75,265,"house");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(565,265,"house");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(190,265,"house");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(450,215,"house");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(240,265,"house");
-    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(400,215,"house");
+    // Water - fragmented river through center
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(25,265,"sea");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(615,215,"sea");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(75,265,"sea");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(565,215,"sea");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(190,265,"sea");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(450,215,"sea");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(240,265,"sea");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(400,215,"sea");
 
+    // Grass - across the water, middle of left and right
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(25,215,"grass");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(615,265,"grass");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(65,215,"grass");
@@ -241,7 +254,11 @@ module scenes {
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(615,305,"grass");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(65,175,"grass");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(575,305,"grass");
+    // fill gaps
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(45,195,"grass");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(595,285,"grass");
     
+    // Grass - adjacent to top & bottom obstacles
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(250,25,"grass");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(390,455,"grass");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(210,25,"grass");
@@ -252,6 +269,10 @@ module scenes {
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(430,415,"grass");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(275,75,"grass");
     this._obstacles[_obstacleCounter++] = new Levels.Obstacle(365,405,"grass");
+    // fill gaps
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(230,45,"grass");
+    this._obstacles[_obstacleCounter++] = new Levels.Obstacle(410,435,"grass");
+  
   
   
   }
@@ -266,18 +287,16 @@ module scenes {
   
       // Initialize Game Variables and objects
       public Start(): void {
-        
         Core.GameManager.Timer = 90;
         this._frameCounter = 0;
         this._background = new Levels.Background("bg2");
-        this._p1Label = new base.Label("Player1: " + Core.GameManager.P1Health, "16px", "Consolas", "#000000", 100, 15, true);
-        this._p2Label = new base.Label("Player2: " + Core.GameManager.P2Health, "16px", "Consolas", "#000000", 600, 15, true);
-        this._timerLabel = new base.Label("|" + Core.GameManager.Timer + "|", "16px", "Consolas", "#000000", 320, 15, true);
+        this._p1Label = new base.Label("Player1: " + Core.GameManager.P1Health, "16px", "Impact", "#000000", 20, 15, false);
+        this._p2Label = new base.Label("Player2: " + Core.GameManager.P2Health, "16px", "Impact", "#000000", 540, 15, false);
+        this._timerLabel = new base.Label("|" + Core.GameManager.Timer + "|", "16px", "Impact", "#000000", 320, 15, true);
         this.setupTankTypes();
         this._tankSound = createjs.Sound.play("level2sd");
         this._tankSound.loop = -1;
-        this._tankSound.volume = 0.7;
-  
+        this._tankSound.volume = 0.2;  
         this._mine = new Levels.PopUp(5000,5000,"mine");
         this._star = new Levels.PopUp(5000,5000,"star");
         this._range = new Levels.PopUp(5000,5000,"range");

@@ -11,7 +11,6 @@ var managers;
         // private methods
         // public methods
         KeyboardManager.prototype.onKeyDown = function (event) {
-            console.log(event.key);
             switch (event.key) {
                 case config.Controllers.P1_UP:
                     this.P1Up = true;

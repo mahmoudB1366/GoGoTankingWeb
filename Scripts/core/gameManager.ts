@@ -16,17 +16,17 @@ module Core {
 
 // Tanks Properties
       public static H_tank_speed = 1.5;
-      public static H_bullet_range = 1.5;
+      public static H_bullet_range = 400;
       public static H_bullet_speed = 1.5;
       public static H_bullet_power = 50;
 
       public static M_tank_speed = 1.5;
-      public static M_bullet_range = 1.5;
+      public static M_bullet_range = 300;
       public static M_bullet_speed = 3;
       public static M_bullet_power = 40;
 
       public static L_tank_speed = 1.5;
-      public static L_bullet_range = 1.5;
+      public static L_bullet_range = 200;
       public static L_bullet_speed = 1.5;
       public static L_bullet_power = 25;
 

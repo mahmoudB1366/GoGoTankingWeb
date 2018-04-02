@@ -28,9 +28,14 @@ var base;
         }
         // public properties
         Bullet.prototype.IsBulletOut = function () {
-            //right boundary
+            var P1 = new math.Vec2(this.x, this.y);
+            var P2 = new math.Vec2(this._initX, this._initY);
             if ((this.x >= 640 + this.HalfWidth) || (this.x <= -this.HalfWidth)
                 || (this.y <= -this.HalfHeight) || (this.y >= 480 + this.HalfHeight)) {
+                this.x = 10000;
+                this.y = 10000;
+            }
+            else if (math.Vec2.Distance(P1, P2) > this._range) {
                 this.x = 10000;
                 this.y = 10000;
             }
@@ -43,6 +48,12 @@ var base;
             this.Move();
             this.IsBulletOut();
             //
+        };
+        Bullet.prototype.Fire = function (InitX, InitY) {
+            this._initX = InitX;
+            this._initY = InitY;
+            this.x = InitX;
+            this.y = InitY;
         };
         Bullet.prototype.Move = function () {
             switch (this._angel) {

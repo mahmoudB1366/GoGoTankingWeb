@@ -13,13 +13,22 @@ module base {
 
       // public properties
       public IsBulletOut():void {
-        //right boundary
+        let P1 = new math.Vec2(this.x, this.y);
+        let P2 = new math.Vec2(this._initX, this._initY);
+
         if((this.x >= 640 + this.HalfWidth) || (this.x <= -this.HalfWidth)
         || (this.y <= -this.HalfHeight) || (this.y >= 480 + this.HalfHeight))
         {
           this.x = 10000;
           this.y = 10000;
         }     
+          //Check bullet's board
+        else if (math.Vec2.Distance(P1, P2) > this._range)
+        {
+          this.x = 10000;
+          this.y = 10000;
+        }
+
       }
       
   
@@ -51,9 +60,17 @@ module base {
         
         this.Move();
         this.IsBulletOut();
+
         //
       }
   
+      public Fire(InitX:number,InitY:number)
+      {
+        this._initX = InitX;
+        this._initY = InitY;
+        this.x = InitX;
+        this.y = InitY;
+      }
   
       
   

@@ -1,6 +1,6 @@
 module managers {
   export class Collision {
-
+    private static _sound : createjs.AbstractSoundInstance;
 
     public static CheckBullet(itSelf: base.GameObject, objects: Array<base.GameObject>, enemyName: string): void {
       // define points for both object1 and object2
@@ -15,35 +15,52 @@ module managers {
        || (math.Vec2.Distance(P1, P2) < (itSelf.HalfWidth + objects[i].HalfWidth))){
           if (!objects[i].IsColliding) {
             objects[i].IsColliding = true;
-            console.log("colide with :" + objects[i].name );
-            console.log("enemy Name :" +enemyName );
             switch (objects[i].name) {
               case enemyName:
-                //createjs.Sound.play("yay");
                 if (enemyName == "Player2")
-                  Core.GameManager.P2Health -= (itSelf as base.Bullet)._power;
-                  if (Core.GameManager.Timer < 30) Core.GameManager.P2Health = 0;
-                if (enemyName == "Player1")
-                  Core.GameManager.P1Health -= (itSelf as base.Bullet)._power;
-                  if (Core.GameManager.Timer < 30) Core.GameManager.P1Health = 0;
+                { 
+                  if (Core.GameManager.Timer < 30 || Core.GameManager.P2Health <= (itSelf as base.Bullet)._power) 
+                  {
+                    Core.GameManager.P2Health = 0;
+                  } else
+                  {
+                    Core.GameManager.P2Health -= (itSelf as base.Bullet)._power;
+                  }
+                }
+                else if (enemyName == "Player1")
+                { 
+                  if (Core.GameManager.Timer < 30 || Core.GameManager.P1Health <= (itSelf as base.Bullet)._power) 
+                  {
+                    Core.GameManager.P1Health = 0;
+                  } else
+                  {
+                    Core.GameManager.P1Health -= (itSelf as base.Bullet)._power;
+                  }
+                }
 
                 break;
               case "stone":
               case "house":
-                createjs.Sound.play("explosion3");
+                this._sound = createjs.Sound.play("explosion3");
+                this._sound.volume = 0.1;
                 break;
               case "wood":
-                createjs.Sound.play("explosion2");
+              
+              this._sound = createjs.Sound.play("explosion2");
+              this._sound.volume = 0.1;
                 objects[i].Life -= 35;
+                (objects[i].Life == 65)? objects[i].gotoAndPlay("wood2"):objects[i].gotoAndPlay("wood3");
                 break;
                 case "mine":
-                createjs.Sound.play("explosion");
+                this._sound = createjs.Sound.play("explosion");
+                this._sound.volume = 0.1;
                 objects[i].x = 5000;
                 objects[i].y = 5000;
                 objects[i].IsColliding = false;
                 break;
                 case "star":
-                createjs.Sound.play("starsd");
+                this._sound = createjs.Sound.play("starsd");
+                this._sound.volume = 0.1;
                 objects[i].x = 5000;
                 objects[i].y = 5000;
                 objects[i].IsColliding = false;
@@ -53,7 +70,8 @@ module managers {
               Core.GameManager.P2Tank.TankSpeed += 0.2;
                 break;
                 case "health":
-                createjs.Sound.play("powerup");
+                this._sound = createjs.Sound.play("powerup");
+                this._sound.volume = 0.1;
                 objects[i].x = 5000;
                 objects[i].y = 5000;
                 objects[i].IsColliding = false;
@@ -63,7 +81,8 @@ module managers {
               Core.GameManager.P2Health =100;
                 break;
                 case "range":
-                createjs.Sound.play("rangesd");
+                this._sound = createjs.Sound.play("rangesd");
+                this._sound.volume = 0.1;
                 objects[i].x = 5000;
                 objects[i].y = 5000;
                 objects[i].IsColliding = false;

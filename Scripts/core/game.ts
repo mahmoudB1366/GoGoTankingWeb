@@ -18,121 +18,139 @@
   textureAtlasData = {
 
     "images": [
-        
-        "./Assets/sprites/atlas.png"
+        ""
     ],
 
     "frames": [
-      [218, 300, 9, 9, 0, 0, 0],	//bullet
-      [2, 2, 49, 50, 0, 0, 0],	//grass
-      [2, 300, 25, 25, 0, 0, 0],	//health (1)
-      [29, 300, 25, 25, 0, 0, 0],	//health (2)
-      [53, 2, 50, 50, 0, 0, 0],	//house
-      [56, 300, 25, 25, 0, 0, 0],	//mine (1)
-      [83, 300, 25, 25, 0, 0, 0],	//mine (2)
-      [2, 157, 48, 47, 0, 0, 0],	//p1heavy (1)
-      [52, 157, 48, 47, 0, 0, 0],	//p1heavy (2)
-      [102, 157, 48, 47, 0, 0, 0],	//p1heavy (3)
-      [152, 157, 48, 47, 0, 0, 0],	//p1heavy (4)
-      [86, 255, 40, 42, 0, 0, 0],	//p1light (1)
-      [194, 206, 40, 43, 0, 0, 0],	//p1light (2)
-      [152, 206, 40, 44, 0, 0, 0],	//p1light (3)
-      [2, 255, 40, 43, 0, 0, 0],	//p1light (4)
-      [40, 106, 36, 48, 0, 0, 0],	//p1medium (1)
-      [158, 54, 36, 49, 0, 0, 0],	//p1medium (2)
-      [105, 2, 36, 50, 0, 0, 0],	//p1medium (3)
-      [196, 54, 36, 49, 0, 0, 0],	//p1medium (4)
-      [202, 157, 48, 47, 0, 0, 0],	//p2heavy (1)
-      [2, 206, 48, 47, 0, 0, 0],	//p2heavy (2)
-      [52, 206, 48, 47, 0, 0, 0],	//p2heavy (3)
-      [102, 206, 48, 47, 0, 0, 0],	//p2heavy (4)
-      [212, 255, 40, 41, 0, 0, 0],	//p2light (1)
-      [128, 255, 40, 42, 0, 0, 0],	//p2light (2)
-      [44, 255, 40, 43, 0, 0, 0],	//p2light (3)
-      [170, 255, 40, 42, 0, 0, 0],	//p2light (4)
-      [78, 106, 36, 48, 0, 0, 0],	//p2medium (1)
-      [116, 106, 36, 48, 0, 0, 0],	//p2medium (2)
-      [2, 106, 36, 49, 0, 0, 0],	//p2medium (3)
-      [154, 106, 36, 48, 0, 0, 0],	//p2medium (4)
-      [110, 300, 25, 25, 0, 0, 0],	//range (1)
-      [191, 300, 25, 24, 0, 0, 0],	//range (2)
-      [143, 2, 50, 50, 0, 0, 0],	//sea
-      [137, 300, 25, 25, 0, 0, 0],	//star (1)
-      [164, 300, 25, 25, 0, 0, 0],	//star (2)
-      [195, 2, 50, 50, 0, 0, 0],	//stone
-      [192, 106, 50, 48, 0, 0, 0],	//tree
-      [2, 54, 50, 50, 0, 0, 0],	//wood
-      [54, 54, 50, 50, 0, 0, 0],	//wood2
-      [106, 54, 50, 50, 0, 0, 0],	//wood3
+      [91, 4, 9, 9, 0, 0, 0],
+      [104, 4, 49, 50, 0, 0, 0],
+      [4, 33, 50, 48, 0, 0, 0],
+      [157, 4, 49, 50, 0, 0, 0],
+      [210, 4, 49, 50, 0, 0, 0],
+      [263, 4, 49, 50, 0, 0, 0],
+      [316, 4, 49, 50, 0, 0, 0],
+      [369, 4, 49, 50, 0, 0, 0],
+      [422, 4, 49, 50, 0, 0, 0],
+      [475, 4, 25, 25, 0, 0, 0],
+      [475, 33, 25, 25, 0, 0, 0],
+      [58, 58, 50, 50, 0, 0, 0],
+      [4, 4, 25, 25, 0, 0, 0],
+      [4, 85, 25, 25, 0, 0, 0],
+      [112, 58, 48, 47, 0, 0, 0],
+      [164, 58, 48, 47, 0, 0, 0],
+      [216, 58, 48, 47, 0, 0, 0],
+      [268, 58, 48, 47, 0, 0, 0],
+      [320, 58, 40, 42, 0, 0, 0],
+      [364, 58, 40, 43, 0, 0, 0],
+      [320, 104, 40, 44, 0, 0, 0],
+      [408, 58, 40, 43, 0, 0, 0],
+      [452, 62, 36, 48, 0, 0, 0],
+      [364, 105, 36, 49, 0, 0, 0],
+      [404, 105, 36, 50, 0, 0, 0],
+      [444, 114, 36, 49, 0, 0, 0],
+      [112, 109, 48, 47, 0, 0, 0],
+      [33, 112, 48, 47, 0, 0, 0],
+      [164, 109, 48, 47, 0, 0, 0],
+      [216, 109, 48, 47, 0, 0, 0],
+      [268, 109, 40, 41, 0, 0, 0],
+      [312, 152, 40, 42, 0, 0, 0],
+      [268, 154, 40, 43, 0, 0, 0],
+      [356, 158, 40, 42, 0, 0, 0],
+      [312, 198, 36, 48, 0, 0, 0],
+      [400, 159, 36, 48, 0, 0, 0],
+      [352, 204, 36, 49, 0, 0, 0],
+      [440, 167, 36, 48, 0, 0, 0],
+      [33, 4, 25, 25, 0, 0, 0],
+      [480, 167, 25, 24, 0, 0, 0],
+      [392, 219, 50, 50, 0, 0, 0],
+      [62, 4, 25, 25, 0, 0, 0],
+      [480, 195, 25, 25, 0, 0, 0],
+      [446, 224, 50, 50, 0, 0, 0],
+      [85, 160, 50, 48, 0, 0, 0],
+      [4, 163, 50, 50, 0, 0, 0],
+      [139, 160, 50, 50, 0, 0, 0],
+      [58, 212, 50, 50, 0, 0, 0],
       ],
       "animations": {
          "bullet": {
             "frames": [0] 
          },
+         "explosion": {
+            "frames":  [7,6,5,4,3,2,1] 
+            ,"speed": 0.3
+            ,next:""
+         },
          "grass": {
-            "frames": [1] 
+            "frames": [8] 
          },
          "health": {
-            "frames": [2 , 3] 
-            , "speed": 0.03
+            "frames": [9,10] 
+            ,"speed": 0.025
          },
          "house": {
-            "frames": [4] 
+            "frames": [11] 
          },
          "mine": {
-            "frames": [5 , 6] 
-            , "speed": 0.03
+            "frames": [12,13] 
+            ,"speed": 0.025
          },
          "p1heavy": {
-            "frames": [7 , 8, 9, 10]
-            , "speed": 0.2  
+            "frames": [14,15,16,17] 
+            ,"speed": 0.15
          },
          "p1light": {
-            "frames": [11,12,13,14]
-            , "speed": 0.2  
+            "frames": [18,19,20,21] 
+            ,"speed": 0.15
          },
          "p1medium": {
-            "frames": [15, 16, 17, 18] 
-            , "speed": 0.2  
+            "frames": [22,23,24,25] 
+            ,"speed": 0.15
          },
          "p2heavy": {
-            "frames": [19,20,21,22]
-            , "speed": 0.2  
+            "frames": [26,27,28,29] 
+            ,"speed": 0.15
          },
          "p2light": {
-            "frames": [23,24,25,26] 
-            , "speed": 0.2  
+            "frames": [30,31,32,33] 
+            ,"speed": 0.15
          },
          "p2medium": {
-            "frames": [27,28,29,30] 
-            , "speed": 0.2  
+            "frames": [34,35,36,37] 
+            ,"speed": 0.15
          },
          "range": {
-            "frames": [31,32] 
-            , "speed": 0.03
-         },
+            "frames": [38,39] 
+            ,"speed": 0.025
+        },
          "sea": {
-            "frames": [33] 
+            "frames": [40] 
          },
          "star": {
-            "frames": [34,35] 
-            , "speed": 0.03
+            "frames": [41,42] 
+            ,"speed": 0.025
          },
          "stone": {
-            "frames": [36] 
+            "frames": [43] 
          },
          "tree": {
-            "frames": [37] 
+            "frames": [44] 
          },
          "wood": {
-            "frames": [38] 
-            
+            "frames": [45] 
+         },
+         "wood2": {
+            "frames": [46] 
+         },
+         "wood3": {
+            "frames": [47] 
          }
       }
 
     };
 
   assetManifest = [
+    {id: "atlas", src:"./Assets/sprites/atlas.png"},
+    //Buttons
     {id: "startButton", src:"./Assets/images/startButton.png"},
     {id: "backButton", src:"./Assets/images/backButton.png"},
     {id: "p1heavy", src:"./Assets/images/p1heavy.png"},
@@ -141,13 +159,15 @@
     {id: "p2heavy", src:"./Assets/images/p2heavy.png"},
     {id: "p2medium", src:"./Assets/images/p2medium.png"},
     {id: "p2light", src:"./Assets/images/p2light.png"},
-    {id: "bullet", src:"./Assets/images/bullet.png"},
-    {id: "selection", src:"./Assets/images/selection.png"},
+   
+    //Backgrounds
     {id: "bg1", src:"./Assets/images/bg1.png"},
     {id: "bg2", src:"./Assets/images/bg2.png"},
     {id: "bg3", src:"./Assets/images/bg3.png"},
     {id: "start", src:"./Assets/images/start.png"},
     {id: "gameOver", src:"./Assets/images/gameover.png"},
+
+    //Sounds
     {id: "level1sd", src:"./Assets/audio/level1sd.mp3"},
     {id: "level2sd", src:"./Assets/audio/level2sd.mp3"},
     {id: "level3sd", src:"./Assets/audio/level3sd.mp3"},
@@ -157,17 +177,7 @@
     {id: "starsd", src:"./Assets/audio/starsd.wav"},
     {id: "rangesd", src:"./Assets/audio/rangesd.wav"},
     {id: "explosion2", src:"./Assets/audio/explosion2.wav"},
-    {id: "explosion3", src:"./Assets/audio/explosion3.wav"},
-    {id: "stone", src:"./Assets/images/stone.png"},
-    {id: "tree", src:"./Assets/images/tree.png"},
-    {id: "wood", src:"./Assets/images/wood.png"},
-    {id: "sea", src:"./Assets/images/sea.png"},
-    {id: "star", src:"./Assets/images/star.png"},
-    {id: "mine", src:"./Assets/images/mine.png"},
-    {id: "health", src:"./Assets/images/health.png"},
-    {id: "range", src:"./Assets/images/range.png"},
-    {id: "grass", src:"./Assets/images/grass.png"},
-    {id: "house", src:"./Assets/images/house.png"}
+    {id: "explosion3", src:"./Assets/audio/explosion3.wav"}
   ];
 
   // preloads assets
@@ -181,7 +191,7 @@
 
   function Start():void {
     console.log("Starting Application...");
-    //textureAtlasData.images = [ assetManager.getResult("textureAtlas") ];
+    textureAtlasData.images = [ Core.GameManager.assetManager.getResult("atlas") ];
     textureAtlas = new createjs.SpriteSheet(textureAtlasData);
     stage = new createjs.Stage(canvas);
     stage.enableMouseOver(20); // turn this on for buttons

@@ -21,6 +21,7 @@ var base;
             var _this = _super.call(this, Core.GameManager.assetManager.getResult(imageString)) || this;
             _this.regX = _this.getBounds().width * 0.5;
             _this.regY = _this.getBounds().height * 0.5;
+            _this.name = imageString;
             _this.x = x;
             _this.y = y;
             _this.on("mouseover", _this._mouseOver);

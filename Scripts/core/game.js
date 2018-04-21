@@ -158,6 +158,8 @@
         { id: "bg3", src: "./Assets/images/bg3.png" },
         { id: "start", src: "./Assets/images/start.png" },
         { id: "gameOver", src: "./Assets/images/gameover.png" },
+        { id: "labelBg", src: "./Assets/images/labelBg.png" },
+        { id: "loading", src: "./Assets/images/loadingBg.png" },
         //Sounds
         { id: "level1sd", src: "./Assets/audio/level1sd.mp3" },
         { id: "level2sd", src: "./Assets/audio/level2sd.mp3" },
@@ -209,6 +211,12 @@
         switch (Core.GameManager.currentScene) {
             case config.Scene.START:
                 currentScene = new scenes.StartScene();
+                break;
+            case config.Scene.TRANSFER:
+                currentScene = new scenes.TransferScene();
+                break;
+            case config.Scene.LOAD:
+                currentScene = new scenes.LoadScene();
                 break;
             case config.Scene.LEVEL1:
                 currentScene = new scenes.Level1Scene();

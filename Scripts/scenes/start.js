@@ -22,7 +22,8 @@ var scenes;
         // Private Mathods
         StartScene.prototype._startButtonClick = function () {
             if ((Core.GameManager.Player1TankType != null) && (Core.GameManager.Player1TankType != null)) {
-                Core.GameManager.currentScene = config.Scene.LEVEL1;
+                Core.GameManager.transferTarget = config.Scene.LOAD;
+                Core.GameManager.currentScene = config.Scene.TRANSFER;
             }
             else {
                 alert("Both Players need to select tank types!!!");

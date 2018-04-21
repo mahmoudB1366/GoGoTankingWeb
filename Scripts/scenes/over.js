@@ -21,7 +21,8 @@ var scenes;
         }
         // Private Mathods
         OverScene.prototype._backButtonClick = function () {
-            Core.GameManager.currentScene = config.Scene.LEVEL1;
+            Core.GameManager.transferTarget = config.Scene.LEVEL1;
+            Core.GameManager.currentScene = config.Scene.TRANSFER;
         };
         // Public Methods
         // Initialize Game Variables and objects

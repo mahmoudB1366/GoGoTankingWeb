@@ -15,6 +15,7 @@ module scenes {
       private _health:Levels.PopUp;
       private _mine:Levels.PopUp;
       private _range:Levels.PopUp;
+      private _labelBg : createjs.Bitmap;
   
       // Public Properties
   
@@ -114,8 +115,8 @@ module scenes {
       this._frameCounter =0;
     }
     
-    this._p1Label.text = "Player1: " + Core.GameManager.P1Health;
-    this._p2Label.text = "Player2: " + Core.GameManager.P2Health;
+    this._p1Label.text = "P1: " + Core.GameManager.P1Health;
+    this._p2Label.text = "P2: " + Core.GameManager.P2Health;
     
     if (Core.GameManager.Timer < 30)
     {
@@ -139,7 +140,8 @@ module scenes {
         this.removeChild(this._player1);
         Core.GameManager.Level3Winner = "Player2";
         this._tankSound.stop();
-        Core.GameManager.currentScene = config.Scene.OVER;
+        Core.GameManager.transferTarget = config.Scene.OVER;
+        Core.GameManager.currentScene = config.Scene.TRANSFER;
         this._player1 = null;
       }
     }
@@ -154,7 +156,8 @@ module scenes {
         this.removeChild(this._player2);
         Core.GameManager.Level3Winner = "Player1";
         this._tankSound.stop();
-        Core.GameManager.currentScene = config.Scene.OVER;
+        Core.GameManager.transferTarget = config.Scene.OVER;
+        Core.GameManager.currentScene = config.Scene.TRANSFER;
         this._player2 = null;
       }
 
@@ -346,9 +349,12 @@ module scenes {
         Core.GameManager.Timer = 90;
         this._frameCounter = 0;
         this._background = new Levels.Background("bg3");
-        this._p1Label = new base.Label("Player1: " + Core.GameManager.P1Health, "16px", "Impact", "#000000", 20, 15, false);
-        this._p2Label = new base.Label("Player2: " + Core.GameManager.P2Health, "16px", "Impact", "#000000", 540, 15, false);
-        this._timerLabel = new base.Label("|" + Core.GameManager.Timer + "|", "16px", "Impact", "#000000", 320, 15, true);
+        this._p1Label = new base.Label("P1: " + Core.GameManager.P1Health, "20px", "Impact", "#843415", 20, 15, false);
+        this._p2Label = new base.Label("P2: " + Core.GameManager.P2Health, "20px", "Impact", "#0C491D", 565, 15, false);
+        this._timerLabel = new base.Label("|" + Core.GameManager.Timer + "|", "22px", "Impact", "#454950", 320, 15, true);
+        this._labelBg = new createjs.Bitmap(Core.GameManager.assetManager.getResult("labelBg"));
+        this._labelBg.alpha = 0.5;
+        
         this.setupTankTypes();
         this._tankSound = createjs.Sound.play("level3sd");
         this._tankSound.loop = -1;
@@ -390,6 +396,8 @@ module scenes {
   
         this.addChild(this._player1.Bullet);
         this.addChild(this._player2.Bullet);
+
+        this.addChild(this._labelBg);
         this.addChild(this._p1Label);
         this.addChild(this._p2Label);
         this.addChild(this._timerLabel);

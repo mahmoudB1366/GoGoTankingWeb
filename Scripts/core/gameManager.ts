@@ -8,6 +8,8 @@ module Core {
       public static playScene : base.Scene;
       public static Timer:number;
 
+      public static transferTarget: config.Scene;
+
       public static P1Health:number;
       public static P2Health:number;
 

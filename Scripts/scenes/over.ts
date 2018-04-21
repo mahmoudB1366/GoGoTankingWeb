@@ -17,7 +17,8 @@ module scenes {
 
     // Private Mathods
     private _backButtonClick():void {
-      Core.GameManager.currentScene = config.Scene.LEVEL1;
+      Core.GameManager.transferTarget = config.Scene.LEVEL1;
+      Core.GameManager.currentScene = config.Scene.TRANSFER;
     }
 
 
